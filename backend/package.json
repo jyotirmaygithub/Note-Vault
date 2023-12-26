@@ -1,0 +1,11 @@
+{
+  "name": "notebook-backend",
+  "version": "1.0.0",
+  "description": "data will be on the cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
