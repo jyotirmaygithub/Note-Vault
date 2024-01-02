@@ -20,5 +20,7 @@ const userDetails = new Schema({
     default : Date.now
    },
   });
-
-  module.exports = mongoose.model("user" , userDetails)
+  const User = mongoose.model("user" , userDetails)
+  User.createIndexes();
+  // We are exporting the user so that we can check all potential database insert data
+  module.exports = User;
