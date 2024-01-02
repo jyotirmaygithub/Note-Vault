@@ -14,25 +14,29 @@ router.post(
     }),
   ],
   async (req, res) => {
+    // below code checks for validation errors using express-validator and sends a response with error details if any validation errors are found. 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     try {
-      // below code checks for validation errors using express-validator and sends a response with error details if any validation errors are found. 
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      // i want to have unique email from user so, this will gonna check for the originality
+      let newUser = await user.findOne({email : req.body.email})
+      if(newUser){
+        return res.status(400).json('User already exists')
       }
-
       ///below function is sending the data into userschema and then storing it in mongodb
-      const newUser = await user.create({
+      newUser = await user.create({
         name: req.body.name,
         password: req.body.password,
         email: req.body.email,
       });
+      //below one is sending the data into the tunderclinet as a response
       res.json(newUser);
-      console.log(newUser)
     } catch (error) {
       // throw errors related to the schema
-      console.log(error);
-      res.json(error);
+      console.error(error.message);
+      res.status(500).send("Some error occured")
     }
   }
 );
