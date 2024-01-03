@@ -3,6 +3,7 @@ const express = require("express");
 const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 // we will gonna create the user POST : /api/auth/createuser : No login required
 router.post(
@@ -24,6 +25,7 @@ router.post(
       // i want to have unique email from user so, this will gonna check for the originality
       let newUser = await user.findOne({email : req.body.email})
       if(newUser){
+        console.log("user already exist")
         return res.status(400).json('User already exists')
       }
       // salt and hash we are using to ensure better security to the user 
@@ -38,8 +40,17 @@ router.post(
         password: secPass,
         email: req.body.email,
       });
-      //below one is sending the data into the tunderclinet as a response
-      res.json(newUser);
+      const JWT_secret = "mynameisanthoneygonservice"
+      const data = {
+        newUser :{
+          id : newUser.id
+        }
+      }
+      const auth_token = jwt.sign(data,JWT_secret);
+      console.log(auth_token)
+
+      //below sending the data into the tunderclinet as a response
+      res.json({auth_token});
     } catch (error) {
       // throw errors related to the schema
       console.error(error.message);
