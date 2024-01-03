@@ -2,6 +2,7 @@ const user = require("../models/User");
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 // we will gonna create the user POST : /api/auth/createuser : No login required
 router.post(
@@ -25,10 +26,16 @@ router.post(
       if(newUser){
         return res.status(400).json('User already exists')
       }
+      // salt and hash we are using to ensure better security to the user 
+      //gensalt() function creates a unique set of number or letters which add-up to the actual password
+      // gensalt is differnent from the simple hash function because it generates unique salt for same password 
+      const salt = await bcrypt.genSalt(10);
+      // secpass is storing a hash password which is comprise of actual and salt
+      const secPass = await bcrypt.hash(req.body.password, salt);
       ///below function is sending the data into userschema and then storing it in mongodb
       newUser = await user.create({
         name: req.body.name,
-        password: req.body.password,
+        password: secPass,
         email: req.body.email,
       });
       //below one is sending the data into the tunderclinet as a response
