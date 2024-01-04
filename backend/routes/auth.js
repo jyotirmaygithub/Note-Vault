@@ -82,7 +82,6 @@ router.post(
       if(!existingUser){
         return res.status(401).json({msg:"Invalid Credentials"});
       }
-
       const existingPassword = bcrypt.compare(password, user.password)
       if(!existingPassword){
         return res.status(401).json({msg:"Invalid Credentials"})
@@ -92,6 +91,5 @@ router.post(
     }
   }
 );
-
 module.exports = router;
-// Note : password shouldnot be store in the plain text
+
