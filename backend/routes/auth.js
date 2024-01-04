@@ -5,6 +5,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 
+const JWT_secret = "mynameisanthoneygonservice";
+
 // we will gonna create the user POST : /api/auth/createuser : through this api or path user will gonna create his/her account
 router.post(
   "/createuser",
@@ -44,7 +46,7 @@ router.post(
         email: req.body.email,
       });
       // by using this code we are creating token which will gonna add the functionality of not entering email and other basic things again and again -- >> a token will let the user enter without any headache
-      const JWT_secret = "mynameisanthoneygonservice";
+      
       const data = {
         newUser: {
           id: newUser.id,
@@ -58,7 +60,7 @@ router.post(
     } catch (error) {
       // throw errors related to the schema
       console.error(error.message);
-      res.status(500).send("Some error occured");
+      res.status(500).send("Server Error Occured");
     }
   }
 );
@@ -78,18 +80,31 @@ router.post(
     }
     const {email,password} = req.body;
     try {
-      let existingUser = user.findOne(email);
+      // user.findOne({ email }), it queries the MongoDB database to find a document where the "email" field matches the provided email. If there's a match, it retrieves the entire document associated with that email
+      // so now existingUser is storing an entire document in itself
+      let existingUser = await user.findOne({email});
       if(!existingUser){
         return res.status(401).json({msg:"Invalid Credentials"});
       }
-      const existingPassword = bcrypt.compare(password, user.password)
-      if(!existingPassword){
-        return res.status(401).json({msg:"Invalid Credentials"})
+      const existingPassword = await bcrypt.compare(password, existingUser.password);
+      if (!existingPassword) {
+        return res.status(401).json({ msg: "Invalid Credentials" });
       }
-    } catch (error) {
+
+      const data = {
+        newUser: {
+          id: existingUser.id,
+        },
+      };
+      // ?? need to know why i am using this !!!!
+      const auth_token = jwt.sign(data, JWT_secret);
+      console.log(auth_token)
+      res.json({ auth_token });
       
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Server Error Occured");
     }
   }
 );
 module.exports = router;
-
