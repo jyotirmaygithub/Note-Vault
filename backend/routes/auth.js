@@ -7,7 +7,7 @@ var jwt = require("jsonwebtoken");
 
 const JWT_secret = "mynameisanthoneygonservice";
 
-// we will gonna create the user POST : /api/auth/createuser : through this api or path user will gonna create his/her account
+//Router 1 : we will gonna create the user POST : /api/auth/createuser : through this api or path user will gonna create his/her account
 router.post(
   "/createuser",
   [
@@ -65,7 +65,7 @@ router.post(
   }
 );
 
-// Authenticate a user using : POST /api/auth/login . NO login required
+// Router 2 : Authenticate a user using : POST /api/auth/login . NO login required
 
 router.post(
   "/login",
@@ -107,4 +107,6 @@ router.post(
     }
   }
 );
+
+// Router 3 : To get logged in user details: POST : "api/auth/getuser" . Login Required
 module.exports = router;
