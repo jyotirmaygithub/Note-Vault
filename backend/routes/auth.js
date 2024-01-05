@@ -46,7 +46,7 @@ router.post(
         email: req.body.email,
       });
       // by using this code we are creating token which will gonna add the functionality of not entering email and other basic things again and again -- >> a token will let the user enter without any headache
-      
+
       const data = {
         newUser: {
           id: newUser.id,
@@ -78,15 +78,18 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const {email,password} = req.body;
+    const { email, password } = req.body;
     try {
       // user.findOne({ email }), it queries the MongoDB database to find a document where the "email" field matches the provided email. If there's a match, it retrieves the entire document associated with that email
       // so now existingUser is storing an entire document in itself
-      let existingUser = await user.findOne({email});
-      if(!existingUser){
-        return res.status(401).json({msg:"Invalid Credentials"});
+      let existingUser = await user.findOne({ email });
+      if (!existingUser) {
+        return res.status(401).json({ msg: "Invalid Credentials" });
       }
-      const existingPassword = await bcrypt.compare(password, existingUser.password);
+      const existingPassword = await bcrypt.compare(
+        password,
+        existingUser.password
+      );
       if (!existingPassword) {
         return res.status(401).json({ msg: "Invalid Credentials" });
       }
@@ -98,9 +101,8 @@ router.post(
       };
       // ?? need to know why i am using this !!!!
       const auth_token = jwt.sign(data, JWT_secret);
-      console.log(auth_token)
+      console.log(auth_token);
       res.json({ auth_token });
-      
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server Error Occured");
@@ -109,4 +111,16 @@ router.post(
 );
 
 // Router 3 : To get logged in user details: POST : "api/auth/getuser" . Login Required
+
+router.post("/getuser", async (req, res) => {
+  try {
+    // these are MongoDB methods in a Node.js environment
+    // The findById method is used to find a document in the MongoDB collection by its unique identifier (_id).
+    // The select method is used to specify which fields should be included or excluded in the query result.
+    const User = user.findById().select();
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server Error Occured");
+  }
+});
 module.exports = router;
