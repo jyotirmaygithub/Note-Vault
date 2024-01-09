@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
+const fetchuser = require("../middleware/fetchUser");
 
 const JWT_secret = "mynameisanthoneygonservice";
 
@@ -112,14 +113,16 @@ router.post(
   }
 );
 
-// Router 3 : To get logged in user details: POST : "api/auth/getuser" . Login Required
-
-router.post("/getuser", async (req, res) => {
+// Router 3 : Logged in user details: POST : "api/auth/getuser".
+// fetchuser function : is a middleware acting as a bridge to make id avaiable, to fetch entire document from the database.
+router.post("/getuser",fetchuser, async (req, res) => {
   try {
-    // these are MongoDB methods in a Node.js environment
-    // The findById method is used to find a document in the MongoDB collection by its unique identifier (_id).
-    // The select method is used to specify which fields should be included or excluded in the query result.
-    const User = user.findById().select();
+    
+    const userId = req.userDetails;
+    //findById : method to find document.
+    //select : method used to specify which fields should be included or excluded in the query result.
+    const User = await user.findById(userId).select("-password");
+    res.send(User);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server Error Occured");
