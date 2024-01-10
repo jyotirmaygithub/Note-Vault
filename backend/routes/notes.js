@@ -88,4 +88,26 @@ router.put("/updatenotes/:id", fetchuser, async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
+// ROUTE 4 : Delete existing note -->> PUT : /api/notes/deletenote
+router.delete("/deletenote/:id", fetchuser, async (req, res) => {
+  // Find a note and then delete it after some checks.
+  try {
+    // CHECK 1 : finding a note (or document) by using that note id (giving it into route).
+    let foundNote = await userNotes.findById(req.params.id);
+    if (!foundNote) {
+      return res.status(404).send("The note is not available");
+    }
+    // CHECK 2 : If the user who tries to delete this note is the owner of it.
+    if (foundNote.user.toString() !== req.userDetails) {
+      return res.status(401).send("You are not authorized to");
+    }
+    // UPDATE : Note (or document) with new values by using mongoose function.
+    await userNotes.findByIdAndDelete(req.params.id);
+    res.json({ Success: "Note has been deleted ", foundNote: foundNote });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error");
+  }
+});
 module.exports = router;
