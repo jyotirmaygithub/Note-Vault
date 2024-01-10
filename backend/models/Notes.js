@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const notesSchema = new Schema({
+   user:{
+      type: mongoose.Schema.Types.ObjectId, // it is a mongoose data type to take document id.
+      ref: 'user'
+  },
    title: {
     type : String,
     required: true  // this means that the field is mandatory to fill in. If it's not filled in, an error will be
@@ -11,7 +15,7 @@ const notesSchema = new Schema({
     required : true,
    },
    tag : {
-    type : String,
+    type : String, 
     default : "General"
    },
    date : {
@@ -19,5 +23,5 @@ const notesSchema = new Schema({
     default : Date.now
    },
   });
-
-  module.exports = mongoose.model("user" , notesSchema)
+  const Notes = mongoose.model("notes" , notesSchema)
+  module.exports = Notes
