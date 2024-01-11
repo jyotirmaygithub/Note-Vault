@@ -3,12 +3,14 @@ import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
+import {NoteContextFun} from "./Context/NoteState"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
 export default function App() {
   return (
-    <div className="App">        
+    <div className="App"> 
+    <NoteContextFun>
         <Router>
           <Navbar />
           <Routes>
@@ -17,6 +19,7 @@ export default function App() {
             <Route exact path="/contact" element={<Contact />} />
           </Routes>
         </Router>
+      </NoteContextFun>       
     </div>
   );
 }
