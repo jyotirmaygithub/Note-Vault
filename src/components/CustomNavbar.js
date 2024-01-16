@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 export default function CustomNavbar() {
   let location = useLocation();
-
-  useEffect(() => {
-    console.log(location.pathname);
-  }, [location]);
 
   return (
     <Navbar className='bg-gray-200' expand="lg">

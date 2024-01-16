@@ -1,7 +1,10 @@
 import Card from 'react-bootstrap/Card';
 import { TrashIcon,PencilSquareIcon } from '@heroicons/react/24/outline'
+import { UserNotes } from '../Context/NoteState';
+
 
 export default function ShowNote(props) {
+  const{handleDeleteNote} = UserNotes();
   let { note } = props;
 
   return (
@@ -13,8 +16,8 @@ export default function ShowNote(props) {
           {note.description}
         </Card.Text>
         <div className='flex'>
-        <TrashIcon className="h-5 w-5" />
-        <PencilSquareIcon className="h-5 w-5" />
+        <TrashIcon className="h-5 w-5 cursor-pointer"  onClick={()=>handleDeleteNote(note._id)}/>
+        <PencilSquareIcon className="h-5 w-5 cursor-pointer" />
         </div>
       </Card.Body>
     </Card>

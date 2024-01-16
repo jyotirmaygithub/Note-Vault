@@ -57,7 +57,9 @@ export function NoteContextFun(props) {
     setnotes(notes.concat(ANote));
   }
   // To delete note
-  function handleDeleteNote(){
+  function handleDeleteNote(id){
+    let newNotes= notes.filter((note)=> note._id !== id);
+    setnotes(newNotes)
   }
   // To edit note
   function handleEditNote() {
