@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import ToShowNotes from "../components/Note"
 
 export default function Home() {
   return (
@@ -24,6 +25,8 @@ export default function Home() {
         Submit
       </Button>
     </Form>
+    {/* calling to show user notes */}
+    <ToShowNotes/>
     </div>
   );
 }
