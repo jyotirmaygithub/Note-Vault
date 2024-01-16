@@ -1,7 +1,9 @@
 import Card from 'react-bootstrap/Card';
+import { TrashIcon,PencilSquareIcon } from '@heroicons/react/24/outline'
 
 export default function ShowNote(props) {
-    let {note} = props;
+  let { note } = props;
+
   return (
     <Card style={{ width: '18rem' }}>
       <Card.Body>
@@ -10,8 +12,10 @@ export default function ShowNote(props) {
         <Card.Text>
           {note.description}
         </Card.Text>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
+        <div className='flex'>
+        <TrashIcon className="h-5 w-5" />
+        <PencilSquareIcon className="h-5 w-5" />
+        </div>
       </Card.Body>
     </Card>
   );
