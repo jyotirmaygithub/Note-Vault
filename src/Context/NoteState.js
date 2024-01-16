@@ -43,8 +43,27 @@ export function NoteContextFun(props) {
     }
   ]
   const [notes,setnotes] = useState(data)
+  // To add note
+  function handleAddNote(title,description,tag){
+    const ANote = {
+      "_id": "659fc640991a99381001b18b",
+      "user": "6595588546aef1207535a67a",
+      "title": title,
+      "description": description,
+      "tag": tag,
+      "date": "2024-01-11T10:43:12.506Z",
+      "__v": 0
+    }
+    setnotes(notes.concat(ANote));
+  }
+  // To delete note
+  function handleDeleteNote(){
+  }
+  // To edit note
+  function handleEditNote() {
+  }
   return (
-    <noteContext.Provider value={{notes,setnotes}}>{props.children}</noteContext.Provider>
+    <noteContext.Provider value={{notes,setnotes,handleAddNote,handleDeleteNote,handleEditNote}}>{props.children}</noteContext.Provider>
     );
 }
 
