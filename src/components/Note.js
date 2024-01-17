@@ -9,7 +9,7 @@ export default function Note() {
     fetchAllNotes();
   }, []);
   return (
-    <div className="flex space-x-6">
+    <div className="flex space-x-6 flex-wrap">
       {notes.map((data) => {
         return <ShowNote note={data} />;
       })}
