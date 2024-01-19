@@ -77,9 +77,25 @@ export function NoteContextFun(props) {
       console.error("Error fetching notes:", error);
     }
   }
-  // To edit note
-  function handleEditNote() {
-    console.log("i think this one is working")
+  // API call 4 : To edit exiting note.
+  async function handleEditNote(id,title,description,tag) {
+    try {
+      const response = await fetch(`${dev_URL}/api/notes/updatenote/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjU5NTU4ODU0NmFlZjEyMDc1MzVhNjdhIn0sImlhdCI6MTcwNDg3NzE4OH0.0UfBodadf9kZNLpeexYY6nrvHOixiSAtUDLnBmUzqqQ",
+        },
+        body: JSON.stringify({ title, description, tag }),
+      });
+      fetchAllNotes();
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
   }
   return (
     <noteContext.Provider
