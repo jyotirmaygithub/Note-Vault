@@ -31,7 +31,7 @@ export default function AddNote() {
           <Form.Control type="text" placeholder="Enter Description" name="description" onChange={onchange} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="tag">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>Tag</Form.Label>
           <Form.Control type="text" placeholder="Enter Tag" name="tag" onChange={onchange} />
         </Form.Group>
         <Button variant="primary" onClick={handleClick} type="submit">

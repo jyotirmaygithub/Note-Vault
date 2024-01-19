@@ -79,6 +79,7 @@ export function NoteContextFun(props) {
   }
   // API call 4 : To edit exiting note.
   async function handleEditNote(id,title,description,tag) {
+    console.log("id at the context side = " , id)
     try {
       const response = await fetch(`${dev_URL}/api/notes/updatenote/${id}`, {
         method: "PUT",
