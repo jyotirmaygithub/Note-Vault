@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { UserNotes } from "../Context/NoteState";
+import { UserNotes } from "../Context/NoteContext";
 import ShowNote from "./ShowNote";
 
 export default function Note() {

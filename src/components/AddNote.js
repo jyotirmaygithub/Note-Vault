@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { UserNotes } from "../Context/NoteState";
+import { UserNotes } from "../Context/NoteContext";
 
 export default function AddNote() {
     // Function : To take title,description and tag as argument to make a new note.

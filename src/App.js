@@ -3,7 +3,7 @@ import Navbar from "./components/CustomNavbar"
 import Home from "./pages/Home"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
-import {NoteContextFun} from "./Context/NoteState"
+import {NoteContextFun} from "./Context/NoteContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 
