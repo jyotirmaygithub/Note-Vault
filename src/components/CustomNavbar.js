@@ -16,7 +16,7 @@ export default function CustomNavbar() {
             <Link to="/contact" className={`nav-link ${location.pathname === "/contact" ? "text-black" : ""}`}>Contact</Link>
           </Nav>
           <Nav>
-            <Link to="#login" className="nav-link">Login</Link>
+            <Link to="/login" className="nav-link">Login</Link>
             <Link to="#signup" className="nav-link">Sign Up</Link>
           </Nav>
         </Navbar.Collapse>
