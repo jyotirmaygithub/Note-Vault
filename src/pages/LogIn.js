@@ -7,6 +7,7 @@ import { Form, Button, Alert } from "react-bootstrap";
 const Login = () => {
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+  const [combinedState,setCombinedState] = useState({username:"",password : ""})
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -21,6 +22,10 @@ const Login = () => {
     }
     setLoading(false);
   };
+
+  function onchange(e){
+    setCombinedState({...combinedState,[e.target.name]: e.target.value})
+  }
 
   const handlePassword = () => {};
 
@@ -61,9 +66,10 @@ const Login = () => {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
+            name="username"
             value={inputUsername}
             placeholder="Username"
-            onChange={(e) => setInputUsername(e.target.value)}
+            onChange={onchange}
             required
           />
         </Form.Group>
@@ -71,9 +77,10 @@ const Login = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
+            name="password"
             value={inputPassword}
             placeholder="Password"
-            onChange={(e) => setInputPassword(e.target.value)}
+            onChange={onchange}
             required
           />
         </Form.Group>
@@ -99,10 +106,6 @@ const Login = () => {
           </Button>
         </div>
       </Form>
-      {/* Footer */}
-      <div className="w-100 mb-2 position-absolute bottom-0 start-50 translate-middle-x text-white text-center">
-        Made by Hendrik C | &copy;2022
-      </div>
     </div>
   );
 };
