@@ -1,67 +1,39 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
+import { UserNotes } from "../Context/NoteContext";
 // import "./login.css";
 // import BackgroundImage from "../../assets/images/background.png";
 // import Logo from "../../assets/images/logo.png";
 
-const Login = () => {
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+export default function SignUp() {
+    const {handleCreateUser} = UserNotes()
+    const [combinedState,setCombinedState] = useState({username : "",email : "",password : ""})
 
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    await delay(500);
-    console.log(`Username :${inputUsername}, Password :${inputPassword}`);
-    if (inputUsername !== "admin" || inputPassword !== "admin") {
-      setShow(true);
+    function onchange(e){
+        setCombinedState({...combinedState,[e.target.name] : e.target.value})
     }
-    setLoading(false);
-  };
-
-  function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
+    function handlesubmit(e){
+        e.preventDefault()
+        handleCreateUser(combinedState.username,combinedState.email,combinedState.password)
+    }
   return (
     <div
       className="sign-in__wrapper"
-    //   style={{ backgroundImage: `url(${BackgroundImage})` }}
+      //   style={{ backgroundImage: `url(${BackgroundImage})` }}
     >
       {/* Overlay */}
       <div className="sign-in__backdrop"></div>
       {/* Form */}
-      <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
-        {/* Header */}
-        {/* <img
-          className="img-thumbnail mx-auto d-block mb-2"
-          src={Logo}
-          alt="logo"
-        /> */}
+      <Form className="shadow p-4 bg-white rounded">
         <div className="h4 mb-2 text-center">Create an account</div>
-        {/* ALert */}
-        {show ? (
-          <Alert
-            className="mb-2"
-            variant="danger"
-            onClose={() => setShow(false)}
-            dismissible
-          >
-            Incorrect username or password.
-          </Alert>
-        ) : (
-          <div />
-        )}
         <Form.Group className="mb-2" controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            value={inputUsername}
+            // value={combinedState.username}
+            name="username"
             placeholder="Username"
-            onChange={(e) => setInputUsername(e.target.value)}
+            onChange={onchange}
             required
           />
         </Form.Group>
@@ -69,9 +41,10 @@ const Login = () => {
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            value={inputUsername}
+            // value={combinedState.email}
+            name="email"
             placeholder="Email"
-            onChange={(e) => setInputUsername(e.target.value)}
+            onChange={onchange}
             required
           />
         </Form.Group>
@@ -79,27 +52,20 @@ const Login = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            value={inputPassword}
+            name="password"
+            // value={combinedState.password}
             placeholder="Password"
-            onChange={(e) => setInputPassword(e.target.value)}
+            onChange={onchange}
             required
           />
         </Form.Group>
         <Form.Group className="mb-2" controlId="checkbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        {!loading ? (
-          <Button className="w-100" variant="primary" type="submit">
-            Log In
+          <Button className="w-100" variant="primary" type="submit" onClick={handlesubmit}>
+            Sign In
           </Button>
-        ) : (
-          <Button className="w-100" variant="primary" type="submit" disabled>
-            Logging In...
-          </Button>
-        )}
       </Form>
     </div>
   );
-};
-
-export default Login;
+}

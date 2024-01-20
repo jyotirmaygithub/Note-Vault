@@ -98,6 +98,24 @@ export function NoteContextFun(props) {
       console.error("Error fetching notes:", error);
     }
   }
+
+  // API call 5 : To create a new user.
+  async function handleCreateUser(name,email,password) {
+    try {
+      const response = await fetch(`${dev_URL}/api/auth/createuser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({name,email,password}),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
+  }
   return (
     <noteContext.Provider
       value={{
@@ -107,6 +125,7 @@ export function NoteContextFun(props) {
         handleAddNote,
         handleDeleteNote,
         handleEditNote,
+        handleCreateUser
       }}
     >
       {props.children}
