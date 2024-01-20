@@ -14,6 +14,12 @@ export default function ShowNote(props) {
     description: "",
     tag: "",
   });
+  // Note : Instead of making three state , i did it with one only afte passing an object into it.
+  const [combinedState, setCombinedState] = useState({
+    title: note.title,
+    description: note.description,
+    tag: note.tag,
+  });
 
   function handleIconClick(){
     setShowModal(true);
@@ -36,6 +42,7 @@ export default function ShowNote(props) {
     console.log("this function is working with id ", id);
   }
   function onchange(e) {
+    setCombinedState({ ...combinedState, [e.target.name]: e.target.value})
     setNoteObj({ ...noteObjvalue, [e.target.name]: e.target.value });
   }
 
@@ -68,7 +75,7 @@ export default function ShowNote(props) {
               <Form.Group className="mb-3" controlId="title">
                 <Form.Label>Title</Form.Label>
                 <Form.Control
-                value={note.title}
+                value={combinedState.title}
                   type="text"
                   placeholder="Enter title"
                   name="title"
@@ -78,7 +85,7 @@ export default function ShowNote(props) {
               <Form.Group className="mb-3" controlId="description">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
-                value={note.description}
+                value={combinedState.description}
                   as="textarea"
                   rows={3}
                   placeholder="Enter Description"
@@ -89,7 +96,7 @@ export default function ShowNote(props) {
               <Form.Group className="mb-3" controlId="tag">
                 <Form.Label>Tag</Form.Label>
                 <Form.Control
-                value={note.tag}
+                value={combinedState.tag}
                   type="text"
                   placeholder="Enter Tag"
                   name="tag"
