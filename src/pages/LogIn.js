@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
+import { UserNotes } from "../Context/NoteContext";
+
 // import "./login.css";
 // import BackgroundImage from "../../assets/images/background.png";
 // import Logo from "../../assets/images/logo.png";
 
-const Login = () => {
+export default function Login(){
+  const {handleExistingUser} = UserNotes()
   const [inputUsername, setInputUsername] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const [combinedState,setCombinedState] = useState({username:"",password : ""})
+  const [combinedState,setCombinedState] = useState({email:"",password : ""})
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    handleExistingUser(combinedState.email,combinedState.password)
     setLoading(true);
     await delay(500);
+    console.log("this one belog to login page = " + combinedState.email)
     console.log(`Username :${inputUsername}, Password :${inputPassword}`);
     if (inputUsername !== "admin" || inputPassword !== "admin") {
       setShow(true);
@@ -62,13 +67,12 @@ const Login = () => {
         ) : (
           <div />
         )}
-        <Form.Group className="mb-2" controlId="username">
-          <Form.Label>Username</Form.Label>
+        <Form.Group className="mb-2" controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            name="username"
-            value={inputUsername}
-            placeholder="Username"
+            name="email"
+            placeholder="Email"
             onChange={onchange}
             required
           />
@@ -78,7 +82,6 @@ const Login = () => {
           <Form.Control
             type="password"
             name="password"
-            value={inputPassword}
             placeholder="Password"
             onChange={onchange}
             required
@@ -109,5 +112,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
