@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 
 
 export default function Login(){
   const [combinedState,setCombinedState] = useState({email:"",password : ""})
+  const Navigation = useNavigate();
 
   // API call : existing user log in.
   async function handleExistingUser(email,password) {
@@ -19,9 +21,16 @@ export default function Login(){
         alert("invalid")
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      let jsondata = await response.json()
-      if(jsondata){
-        document.cookie = jsondata.auth_token
+      let userresponse = await response.json()
+      console.log("userresponse" , userresponse)
+      if(userresponse.outcome){
+        document.cookie = userresponse.auth_token
+        setTimeout(() => {
+          Navigation(`/`)        
+        }, 1000);
+      }
+      else{
+        alert("invalid")
       }
     } catch (error) {
       console.error("Error fetching notes:", error);
