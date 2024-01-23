@@ -130,6 +130,12 @@ export function NoteContextFun(props) {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      let jsondata = await response.json()
+      if(jsondata){
+        // localStorage.setItem("auth_token" ,jsondata.auth_token);
+        document.cookie = jsondata.auth_token
+      }
+      console.log("belongs to the auth",jsondata)
     } catch (error) {
       console.error("Error fetching notes:", error);
     }
