@@ -98,31 +98,7 @@ export function NoteContextFun(props) {
       console.error("Error fetching notes:", error);
     }
   }
- 
 
-  // API call 6 : Let existing user log in.
-  async function handleExistingUser(email,password) {
-    try {
-      const response = await fetch(`${dev_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({email,password}),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      let jsondata = await response.json()
-      if(jsondata){
-        // localStorage.setItem("auth_token" ,jsondata.auth_token);
-        document.cookie = jsondata.auth_token
-      }
-      console.log("belongs to the auth",jsondata)
-    } catch (error) {
-      console.error("Error fetching notes:", error);
-    }
-  }
   return (
     <noteContext.Provider
       value={{
@@ -132,7 +108,6 @@ export function NoteContextFun(props) {
         handleAddNote,
         handleDeleteNote,
         handleEditNote,
-        handleExistingUser
       }}
     >
       {props.children}

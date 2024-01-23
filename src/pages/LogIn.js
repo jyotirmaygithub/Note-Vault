@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import { UserNotes } from "../Context/NoteContext";
 
 
 export default function Login(){
-  const {handleExistingUser} = UserNotes()
   const [combinedState,setCombinedState] = useState({email:"",password : ""})
+
+  // API call : existing user log in.
+  async function handleExistingUser(email,password) {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_DEV_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email,password}),
+      });
+      if (!response.ok) {
+        alert("invalid")
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      let jsondata = await response.json()
+      if(jsondata){
+        document.cookie = jsondata.auth_token
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
