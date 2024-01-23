@@ -22,7 +22,7 @@ export default function SignUp() {
         }
       );
       if (!response.ok) {
-        console.log("invalid")
+        alert("invalid")
         throw new Error(`${response.outcome} HTTP error! Status: ${response.status}`);
       }
       let userAuth_Token = await response.json();
@@ -31,7 +31,7 @@ export default function SignUp() {
         document.cookie = userAuth_Token.auth_token;
       }
       else{
-        console.log("invalid")
+        alert("invalid")
       }
     } catch (error) {
       console.error("Error fetching notes:", error);
@@ -54,7 +54,7 @@ export default function SignUp() {
     <div className="sign-in__wrapper">
       <div className="sign-in__backdrop"></div>
       {/* Form */}
-      <Form className="shadow p-4 bg-white rounded">
+      <Form className="shadow p-4 bg-white rounded " onSubmit={handlesubmit}>
         <div className="h4 mb-2 text-center">Create an account</div>
         <Form.Group className="mb-2" controlId="username">
           <Form.Label>Username</Form.Label>
@@ -93,7 +93,6 @@ export default function SignUp() {
           className="w-100"
           variant="primary"
           type="submit"
-          onClick={handlesubmit}
         >
           Sign In
         </Button>
