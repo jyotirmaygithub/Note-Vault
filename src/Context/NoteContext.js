@@ -3,7 +3,7 @@ import React, { useState, useContext, createContext } from "react";
 
 const noteContext = createContext();
 
-const dev_URL = "http://localhost:5000";
+const dev_URL = process.env.REACT_APP_DEV_URL;
 
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
@@ -98,24 +98,7 @@ export function NoteContextFun(props) {
       console.error("Error fetching notes:", error);
     }
   }
-
-  // API call 5 : To create a new user.
-  async function handleCreateUser(name,email,password) {
-    try {
-      const response = await fetch(`${dev_URL}/api/auth/createuser`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({name,email,password}),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error fetching notes:", error);
-    }
-  }
+ 
 
   // API call 6 : Let existing user log in.
   async function handleExistingUser(email,password) {
@@ -149,7 +132,6 @@ export function NoteContextFun(props) {
         handleAddNote,
         handleDeleteNote,
         handleEditNote,
-        handleCreateUser,
         handleExistingUser
       }}
     >

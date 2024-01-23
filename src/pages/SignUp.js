@@ -1,27 +1,57 @@
-import React, { useState,useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { UserNotes } from "../Context/NoteContext";
-// import "./login.css";
-// import BackgroundImage from "../../assets/images/background.png";
-// import Logo from "../../assets/images/logo.png";
+import React, { useState } from "react";
+import { Form, Button } from "react-bootstrap";
 
 export default function SignUp() {
-    const {handleCreateUser} = UserNotes()
-    const [combinedState,setCombinedState] = useState({username : "",email : "",password : ""})
+  const [combinedState, setCombinedState] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-    function onchange(e){
-        setCombinedState({...combinedState,[e.target.name] : e.target.value})
+  // API call : To create a new user.
+  async function handleCreateUser(name, email, password) {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_DEV_URL}/api/auth/createuser`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
+      if (!response.ok) {
+        console.log("invalid")
+        throw new Error(`${response.outcome} HTTP error! Status: ${response.status}`);
+      }
+      let userAuth_Token = await response.json();
+      console.log("Auth token : ", userAuth_Token);
+      if (userAuth_Token.outcome) {
+        document.cookie = userAuth_Token.auth_token;
+      }
+      else{
+        console.log("invalid")
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
     }
-    function handlesubmit(e){
-        e.preventDefault()
-        handleCreateUser(combinedState.username,combinedState.email,combinedState.password)
-    }
+  }
+
+  function onchange(e) {
+    setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
+  }
+  function handlesubmit(e) {
+    e.preventDefault();
+    handleCreateUser(
+      combinedState.username,
+      combinedState.email,
+      combinedState.password
+    );
+  }
+
   return (
-    <div
-      className="sign-in__wrapper"
-      //   style={{ backgroundImage: `url(${BackgroundImage})` }}
-    >
-      {/* Overlay */}
+    <div className="sign-in__wrapper">
       <div className="sign-in__backdrop"></div>
       {/* Form */}
       <Form className="shadow p-4 bg-white rounded">
@@ -30,7 +60,6 @@ export default function SignUp() {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            // value={combinedState.username}
             name="username"
             placeholder="Username"
             onChange={onchange}
@@ -41,7 +70,6 @@ export default function SignUp() {
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            // value={combinedState.email}
             name="email"
             placeholder="Email"
             onChange={onchange}
@@ -53,7 +81,6 @@ export default function SignUp() {
           <Form.Control
             type="password"
             name="password"
-            // value={combinedState.password}
             placeholder="Password"
             onChange={onchange}
             required
@@ -62,9 +89,14 @@ export default function SignUp() {
         <Form.Group className="mb-2" controlId="checkbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-          <Button className="w-100" variant="primary" type="submit" onClick={handlesubmit}>
-            Sign In
-          </Button>
+        <Button
+          className="w-100"
+          variant="primary"
+          type="submit"
+          onClick={handlesubmit}
+        >
+          Sign In
+        </Button>
       </Form>
     </div>
   );

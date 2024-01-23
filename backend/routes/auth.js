@@ -20,17 +20,17 @@ router.post(
     }),
   ],
   async (req, res) => {
+    let outcome = false;
     // VALIDATION RESULTS : if error occured at validation so it will return type and place of error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({outcome, errors: errors.array() });
     }
     try {
       // CHECK 2 : we dont want two or more user of same email id (we are checking it with existing app database).
       let newUser = await user.findOne({ email: req.body.email });
       if (newUser) {
-        console.log("user already exist");
-        return res.status(400).json("User already exists");
+        return res.status(400).json({outcome, message : "User already exists"});
       }
       // NOTE :Gonna create a document of new user after passing all checks with some additional security.
       // salt and hash we are using to ensure better security to the user.
@@ -53,12 +53,14 @@ router.post(
       };
       const auth_token = jwt.sign(data, JWT_secret);
       console.log(auth_token);
-
-      res.json({ auth_token });
+      if(auth_token){
+        outcome = true;
+      }
+      res.json({ outcome,auth_token });
     } catch (error) {
       // throw errors.
       console.error(error.message);
-      res.status(500).send("Server Error Occured");
+      res.status(500).send("Internal server Error Occured");
     }
   }
 );
