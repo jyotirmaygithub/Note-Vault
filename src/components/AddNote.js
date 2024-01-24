@@ -5,9 +5,33 @@ import { UserNotes } from "../Context/NoteContext";
 
 export default function AddNote() {
     // Function : To take title,description and tag as argument to make a new note.
-  const { handleAddNote } = UserNotes();
+  const { fetchAllNotes } = UserNotes();
   // create a object in state with name and values. which need to be update on user entered input and then need to pass as arugement in the given function.
   const [note,setnote] = useState({title : "",description: "",tag: ""})
+
+   // API call : To add note.
+   console.log("cookie inside the storage = " ,  document.cookie)
+  async function handleAddNote(title, description, tag) {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_DEV_URL}/api/notes/addnote`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // "auth-token": document.cookie,
+      
+        },
+        // sending data to the data base to update.
+        body: JSON.stringify({ title, description, tag }),
+      });
+      fetchAllNotes();
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error fetching notes:", error);
+    }
+  }
 
   function handleClick(e) {
     e.preventDefault();

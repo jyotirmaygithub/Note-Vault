@@ -7,6 +7,7 @@ var jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchUser");
 
 const JWT_secret = process.env.REACT_APP_JWT_SECRET;
+console.log(JWT_secret)
 
 //ROUTE 1 : creating an user account POST : /api/auth/createuser
 router.post(

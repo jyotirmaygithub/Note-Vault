@@ -9,9 +9,24 @@ export default function SignUp() {
     password: "",
   });
   const Navigation = useNavigate();
+  
+  function onchange(e) {
+    setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
+  }
+  function handlesubmit(e) {
+    e.preventDefault();
+    console.log(combinedState)
+    handleCreateUser(
+      combinedState.username,
+      combinedState.email,
+      combinedState.password
+    );
+  }
+
 
   // API call : To create a new user.
-  async function handleCreateUser(name, email, password) {
+  async function handleCreateUser(username, email, password) {
+    console.log(process.env.REACT_APP_JWT_SECRET)
     try {
       const response = await fetch(
         `${process.env.REACT_APP_DEV_URL}/api/auth/createuser`,
@@ -20,7 +35,7 @@ export default function SignUp() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({ username, email, password }),
         }
       );
       if (!response.ok) {
@@ -41,18 +56,6 @@ export default function SignUp() {
     } catch (error) {
       console.error("Error fetching notes:", error);
     }
-  }
-
-  function onchange(e) {
-    setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
-  }
-  function handlesubmit(e) {
-    e.preventDefault();
-    handleCreateUser(
-      combinedState.username,
-      combinedState.email,
-      combinedState.password
-    );
   }
 
   return (
