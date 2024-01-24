@@ -1,16 +1,18 @@
-import React from 'react'
-import {UserNotes} from "../Context/NoteState"
-import ShowNote from './ShowNote';
+import React, { useEffect } from "react";
+import { UserNotes } from "../Context/NoteContext";
+import ShowNote from "./ShowNote";
 
 export default function Note() {
-    const {notes} = UserNotes();
+  const { notes, fetchAllNotes } = UserNotes();
+  // To show all the existing notes to the client
+  useEffect(() => {
+    fetchAllNotes();
+  }, []);
   return (
-    <div className='flex space-x-6'>
-      {notes.map((data)=>{
-        return (
-          <ShowNote note={data}/>
-        );
+    <div className="flex space-x-6 flex-wrap">
+      {notes.map((data) => {
+        return <ShowNote note={data} />;
       })}
     </div>
-  )
+  );
 }

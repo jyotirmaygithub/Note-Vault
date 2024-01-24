@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { UserNotes } from "../Context/NoteState";
+import { UserNotes } from "../Context/NoteContext";
 
 export default function AddNote() {
     // Function : To take title,description and tag as argument to make a new note.
@@ -29,6 +29,10 @@ export default function AddNote() {
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control type="text" placeholder="Enter Description" name="description" onChange={onchange} />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="tag">
+          <Form.Label>Tag</Form.Label>
+          <Form.Control type="text" placeholder="Enter Tag" name="tag" onChange={onchange} />
         </Form.Group>
         <Button variant="primary" onClick={handleClick} type="submit">
           Submit
