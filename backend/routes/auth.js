@@ -6,8 +6,7 @@ const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchUser");
 
-const JWT_secret = process.env.REACT_APP_JWT_SECRET;
-console.log(JWT_secret)
+const JWT_secret = "needtosearchformeaning";
 
 //ROUTE 1 : creating an user account POST : /api/auth/createuser
 router.post(
@@ -52,12 +51,13 @@ router.post(
           id: newUser.id,
         },
       };
+      console.log("jwt secret",JWT_secret)
       const auth_token = jwt.sign(data, JWT_secret);
       console.log(auth_token);
       if(auth_token){
         outcome = true;
       }
-      res.json({ outcome,auth_token });
+      res.json({outcome,auth_token });
     } catch (error) {
       // throw errors.
       console.error(error.message);

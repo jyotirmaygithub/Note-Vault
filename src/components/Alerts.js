@@ -1,9 +1,13 @@
-import React from 'react'
+import Alert from 'react-bootstrap/Alert';
 
-export default function Alerts() {
+export default function Alerts(props) {
+  let { looks,des } = props;
+  console.log(looks,des)
   return (
-    <div>
-      
-    </div>
-  )
+    <>
+        <Alert key={looks} variant={looks}>
+           {des}
+        </Alert>
+    </>
+  );
 }
