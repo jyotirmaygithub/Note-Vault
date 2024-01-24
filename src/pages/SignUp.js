@@ -54,10 +54,15 @@ export default function SignUp() {
       }
 
       const userAuth_Token = await response.json();
-      if (userAuth_Token) {
+
+      if (userAuth_Token && userAuth_Token.auth_token) {    
+        // Set the cookie with an expiration time
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 7); // Set to expire in 7 days
+        document.cookie = `auth_token=${userAuth_Token.auth_token}; expires=${expirationDate.toUTCString()}; path=/`;
+      
         setDetails({ look: "success", des: "valid credentials" });
         setAlertState(true);
-        document.cookie = userAuth_Token.auth_token;
         alertRemoval();
         setTimeout(() => {
           Navigation(`/`);
