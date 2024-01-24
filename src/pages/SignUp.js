@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button} from "react-bootstrap";
-import Alert from "../components/Alerts"
+import { Form, Button } from "react-bootstrap";
+import Alert from "../components/Alerts";
 
 export default function SignUp() {
   const [combinedState, setCombinedState] = useState({
@@ -9,8 +9,8 @@ export default function SignUp() {
     email: "",
     password: "",
   });
-  const [alertState,setAlertState] = useState(false)
-  const [details,setDetails] = useState({look : "",des : ""})
+  const [alertState, setAlertState] = useState(false);
+  const [details, setDetails] = useState({ look: "", des: "" });
   const Navigation = useNavigate();
 
   function onchange(e) {
@@ -27,6 +27,12 @@ export default function SignUp() {
     );
   }
 
+  function alertRemoval() {
+    setTimeout(() => {
+      setAlertState(false);
+    }, 1500);
+  }
+
   async function handleCreateUser(name, email, password) {
     try {
       const response = await fetch(
@@ -39,27 +45,23 @@ export default function SignUp() {
           body: JSON.stringify({ name, email, password }),
         }
       );
-      
+
       if (!response.ok) {
-        alert("Invalid");
-        setAlertState(true)
-        setDetails({look : "danger" , des : "Invalid credentials"})
+        setAlertState(true);
+        alertRemoval();
+        setDetails({ look: "danger", des: "Invalid credentials" });
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      
+
       const userAuth_Token = await response.json();
-      if (userAuth_Token) { 
-        setDetails({look : "success" , des : "valid credentials"})
-        setAlertState(true)
+      if (userAuth_Token) {
+        setDetails({ look: "success", des: "valid credentials" });
+        setAlertState(true);
         document.cookie = userAuth_Token.auth_token;
-        setTimeout(() => {
-          
-        }, 1000);
+        alertRemoval();
         setTimeout(() => {
           Navigation(`/`);
-        }, 1500);
-      } else {
-        alert("Invalid");
+        }, 2500);
       }
     } catch (error) {
       console.error("Error creating user:", error);
@@ -68,7 +70,9 @@ export default function SignUp() {
 
   return (
     <div className="sign-in__wrapper">
-      {alertState && <Alert looks={details.look} des={details.des}/>}
+      <div>
+      {alertState && <Alert looks={details.look} des={details.des} />}
+      </div>
       <div className="sign-in__backdrop"></div>
       {/* Form */}
       <Form className="shadow p-4 bg-white rounded" onSubmit={handlesubmit}>

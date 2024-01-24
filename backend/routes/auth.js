@@ -51,9 +51,7 @@ router.post(
           id: newUser.id,
         },
       };
-      console.log("jwt secret",JWT_secret)
       const auth_token = jwt.sign(data, JWT_secret);
-      console.log(auth_token);
       if(auth_token){
         outcome = true;
       }
