@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 
 export default function SignUp() {
@@ -7,6 +8,7 @@ export default function SignUp() {
     email: "",
     password: "",
   });
+  const Navigation = useNavigate();
 
   // API call : To create a new user.
   async function handleCreateUser(name, email, password) {
@@ -29,6 +31,9 @@ export default function SignUp() {
       console.log("Auth token : ", userAuth_Token);
       if (userAuth_Token.outcome) {
         document.cookie = userAuth_Token.auth_token;
+        setTimeout(() => {
+          Navigation(`/`)        
+        }, 1000);
       }
       else{
         alert("invalid")
