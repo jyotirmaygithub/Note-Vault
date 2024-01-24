@@ -10,7 +10,6 @@ export default function AddNote() {
   const [note,setnote] = useState({title : "",description: "",tag: ""})
 
    // API call : To add note.
-   console.log("cookie inside the storage = " ,  document.cookie)
   async function handleAddNote(title, description, tag) {
     try {
       const response = await fetch(`${process.env.REACT_APP_DEV_URL}/api/notes/addnote`, {

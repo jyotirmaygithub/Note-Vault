@@ -5,6 +5,20 @@ const noteContext = createContext();
 
 const dev_URL = process.env.REACT_APP_DEV_URL;
 
+function getCookie(cookieName) {
+  console.log(cookieName)
+  const cookies = document.cookie.split('.');
+  console.log("cookies = ",cookies)
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    console.log("cookie trimming =" ,cookie)
+    if (cookie.startsWith(`${cookieName}=`)) {
+      return cookie.substring(cookieName.length + 1);
+    }
+  }
+  return null;
+}
+
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
   const [notes, setnotes] = useState([]);
@@ -18,9 +32,8 @@ export function NoteContextFun(props) {
         headers: {
           "Content-Type": "application/json",
           // Need to change : from the retriving from the cookie or session storage 
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjU5NTU4ODU0NmFlZjEyMDc1MzVhNjdhIn0sImlhdCI6MTcwNDg3NzE4OH0.0UfBodadf9kZNLpeexYY6nrvHOixiSAtUDLnBmUzqqQ",
-        },
+          "auth-token": getCookie("auth_token")
+         },
       });
 
       if (!response.ok) {
@@ -35,28 +48,6 @@ export function NoteContextFun(props) {
     }
   }
 
-  // API call 2 : To add note.
-  async function handleAddNote(title, description, tag) {
-    try {
-      const response = await fetch(`${dev_URL}/api/notes/addnote`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuZXdVc2VyIjp7ImlkIjoiNjU5NTU4ODU0NmFlZjEyMDc1MzVhNjdhIn0sImlhdCI6MTcwNDg3NzE4OH0.0UfBodadf9kZNLpeexYY6nrvHOixiSAtUDLnBmUzqqQ",
-        },
-        // sending data to the data base to update.
-        body: JSON.stringify({ title, description, tag }),
-      });
-      fetchAllNotes();
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error fetching notes:", error);
-    }
-  }
 
   // API call 3 : To delete a note.
   async function handleDeleteNote(id) {
@@ -105,7 +96,6 @@ export function NoteContextFun(props) {
         notes,
         setnotes,
         fetchAllNotes,
-        handleAddNote,
         handleDeleteNote,
         handleEditNote,
       }}
