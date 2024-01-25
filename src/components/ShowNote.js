@@ -39,7 +39,6 @@ export default function ShowNote(props) {
       noteObjvalue.description,
       noteObjvalue.tag
     );
-    console.log("this function is working with id ", id);
   }
   function onchange(e) {
     setCombinedState({ ...combinedState, [e.target.name]: e.target.value})
@@ -47,7 +46,7 @@ export default function ShowNote(props) {
   }
 
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card key={note._id} style={{ width: "18rem" }}>
       <Card.Body>
         <Card.Title>{note.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{note.tag}</Card.Subtitle>

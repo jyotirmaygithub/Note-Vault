@@ -24,8 +24,6 @@ function getCookie(cookieName) {
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
   const [notes, setnotes] = useState([]);
-  const temp = getCookie("auth_token");
-  console.log("belongs to temp = ", temp);
 
   // Fetching, adding, updating and deleting will be done through API calls.
   // API call 1: To fetch all existing notes.
