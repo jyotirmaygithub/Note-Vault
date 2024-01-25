@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import Alert from "../components/Alerts";
 
 export default function SignUp() {
   const [combinedState, setCombinedState] = useState({
@@ -7,8 +9,30 @@ export default function SignUp() {
     email: "",
     password: "",
   });
+  const [alertState, setAlertState] = useState(false);
+  const [details, setDetails] = useState({ look: "", des: "" });
+  const Navigation = useNavigate();
 
-  // API call : To create a new user.
+  function onchange(e) {
+    setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
+  }
+
+  async function handlesubmit(e) {
+    e.preventDefault();
+    console.log(combinedState);
+    await handleCreateUser(
+      combinedState.username,
+      combinedState.email,
+      combinedState.password
+    );
+  }
+
+  function alertRemoval() {
+    setTimeout(() => {
+      setAlertState(false);
+    }, 1500);
+  }
+
   async function handleCreateUser(name, email, password) {
     try {
       const response = await fetch(
@@ -21,40 +45,42 @@ export default function SignUp() {
           body: JSON.stringify({ name, email, password }),
         }
       );
+
       if (!response.ok) {
-        alert("invalid")
-        throw new Error(`${response.outcome} HTTP error! Status: ${response.status}`);
+        setAlertState(true);
+        alertRemoval();
+        setDetails({ look: "danger", des: "Invalid credentials" });
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      let userAuth_Token = await response.json();
-      console.log("Auth token : ", userAuth_Token);
-      if (userAuth_Token.outcome) {
-        document.cookie = userAuth_Token.auth_token;
-      }
-      else{
-        alert("invalid")
+
+      const userAuth_Token = await response.json();
+
+      if (userAuth_Token && userAuth_Token.auth_token) {    
+        // Set the cookie with an expiration time
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 7); // Set to expire in 7 days
+        document.cookie = `auth_token=${userAuth_Token.auth_token}; expires=${expirationDate.toUTCString()}; path=/`;
+      
+        setDetails({ look: "success", des: "valid credentials" });
+        setAlertState(true);
+        alertRemoval();
+        setTimeout(() => {
+          Navigation(`/`);
+        }, 2500);
       }
     } catch (error) {
-      console.error("Error fetching notes:", error);
+      console.error("Error creating user:", error);
     }
-  }
-
-  function onchange(e) {
-    setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
-  }
-  function handlesubmit(e) {
-    e.preventDefault();
-    handleCreateUser(
-      combinedState.username,
-      combinedState.email,
-      combinedState.password
-    );
   }
 
   return (
     <div className="sign-in__wrapper">
+      <div>
+      {alertState && <Alert looks={details.look} des={details.des} />}
+      </div>
       <div className="sign-in__backdrop"></div>
       {/* Form */}
-      <Form className="shadow p-4 bg-white rounded " onSubmit={handlesubmit}>
+      <Form className="shadow p-4 bg-white rounded" onSubmit={handlesubmit}>
         <div className="h4 mb-2 text-center">Create an account</div>
         <Form.Group className="mb-2" controlId="username">
           <Form.Label>Username</Form.Label>
@@ -89,11 +115,7 @@ export default function SignUp() {
         <Form.Group className="mb-2" controlId="checkbox">
           <Form.Check type="checkbox" label="Remember me" />
         </Form.Group>
-        <Button
-          className="w-100"
-          variant="primary"
-          type="submit"
-        >
+        <Button className="w-100" variant="primary" type="submit">
           Sign In
         </Button>
       </Form>

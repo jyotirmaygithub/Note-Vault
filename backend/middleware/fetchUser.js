@@ -1,7 +1,7 @@
 var jwt = require("jsonwebtoken");
 // Middleware : To fetch user details and its a function
 
-const JWT_secret = "mynameisanthoneygonservice";
+const JWT_secret = "needtosearchformeaning";
 
 function fetchuser(req,res,next){
     const token = req.header("auth-token")
