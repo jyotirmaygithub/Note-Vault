@@ -7,6 +7,7 @@ import {NoteContextFun} from "./Context/NoteContext"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
+import EnterBtn from "./pages/EnterBtn";
 
 
 export default function App() {
@@ -14,9 +15,9 @@ export default function App() {
     <div className="App"> 
     <NoteContextFun>
         <Router>
-          <Navbar />
+          {/* <Navbar /> */}
           <Routes>
-            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/" element={<EnterBtn/>}/>
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/login" element={<LogIn />} />
