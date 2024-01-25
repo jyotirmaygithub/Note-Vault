@@ -6,25 +6,26 @@ const dev_URL = process.env.REACT_APP_DEV_URL;
 
 function getCookie(cookieName) {
   const cookies = document.cookie;
-  const cookieArray = cookies.split('; ');
-  console.log("cookieArray = ",cookieArray)
+  const cookieArray = cookies.split("; ");
+  // console.log("cookieArray = ",cookieArray)
 
   for (const cookie of cookieArray) {
     if (cookie.startsWith(`${cookieName}=`)) {
       // Extract and return the value of the cookie
-      const cookieValue = cookie.split('=')[1];
-      console.log("cookieValue = ",cookieValue)
+      const cookieValue = cookie.split("=")[1];
+      // console.log("cookieValue = ",cookieValue)
       return cookieValue;
     }
   }
 
   return null;
 }
+
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
   const [notes, setnotes] = useState([]);
-  const temp = getCookie("auth_token")
-  console.log("belongs to temp = " ,temp)
+  const temp = getCookie("auth_token");
+  console.log("belongs to temp = ", temp);
 
   // Fetching, adding, updating and deleting will be done through API calls.
   // API call 1: To fetch all existing notes.
@@ -34,7 +35,6 @@ export function NoteContextFun(props) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Need to change : from the retriving from the cookie or session storage
           "auth-token": getCookie("auth_token"),
         },
       });
