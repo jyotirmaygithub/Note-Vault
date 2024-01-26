@@ -54,6 +54,11 @@ export default function Login() {
   function onchange(e) {
     setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
   }
+  function handleClick(){
+    setTimeout(() => {
+        Navigation(`/signup`)      
+    }, 100);
+  }
 
   // API call : existing user log in.
   async function handleExistingUser(email, password) {
@@ -164,7 +169,7 @@ export default function Login() {
               <Grid item xs>
                   Forgot password?
               </Grid>
-              <Grid item>
+              <Grid item onClick={handleClick}>
                 "Don't have an account? Sign Up
               </Grid>
             </Grid>

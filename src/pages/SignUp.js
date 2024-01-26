@@ -5,9 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -53,6 +50,12 @@ export default function SignUp() {
       combinedState.email,
       combinedState.password
     );
+  }
+
+  function handleClick(){
+    setTimeout(() => {
+      Navigation(`/login`)    
+    }, 100);
   }
 
   function alertRemoval() {
@@ -167,7 +170,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
             <Button
-            className="bg-black"
+              className="bg-black"
               type="submit"
               fullWidth
               variant="contained"
@@ -175,10 +178,13 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container className="text-black cursor-pointer underline flex justify-end">
-              <Grid item>
-                  Already have an account? Sign in
-              </Grid>
+            <Grid
+              container
+              className="text-black cursor-pointer underline flex justify-end"
+              onClick={handleClick}
+
+            >
+              <Grid item>Already have an account? Log in</Grid>
             </Grid>
           </Box>
         </Box>
