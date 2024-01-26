@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LogIn from "./pages/LogIn";
 import SignUp from "./pages/SignUp";
 import EnterBtn from "./pages/EnterBtn";
+import ProgressCircle from "./pages/ProgressCircle";
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/login" element={<LogIn />} />
+            <Route exact path="/login/fetchingdata" element={<ProgressCircle />} />
             <Route exact path="/signup" element={<SignUp />} />
           </Routes>
         </Router>
