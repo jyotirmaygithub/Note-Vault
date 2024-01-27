@@ -4,7 +4,6 @@ import Alert from "../components/Alerts";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
@@ -13,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import MyStyledTextField from "../components/MyStyledTextField";
 
 export default function Login() {
   function Copyright(props) {
@@ -129,7 +129,7 @@ export default function Login() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
+            <MyStyledTextField
               margin="normal"
               required
               fullWidth
@@ -140,7 +140,7 @@ export default function Login() {
               onChange={onchange}
               autoFocus
             />
-            <TextField
+            <MyStyledTextField
             className="text-black"
               margin="normal"
               required
