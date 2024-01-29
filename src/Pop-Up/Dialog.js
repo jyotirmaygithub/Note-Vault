@@ -6,17 +6,13 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { States_Func } from "../Context/Context";
 
-export default function FormDialog() {
-  const { showModal, setShowModal } = States_Func();
+export default function FormDialog({open,handleClose,noteTitle,noteDesc}) {
+  console.log(noteDesc)
 
-  function handleClose() {
-    setShowModal(false);
-  }
 
   return (
-    <Dialog open={showModal} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
       <DialogContent>
         <DialogContentText>

@@ -11,7 +11,8 @@ export default function Note() {
   return (
     <div className="flex space-x-6 flex-wrap">
       {notes.map((data) => {
-        return <ShowNote note={data} />;
+        // {console.log(data.tag)}
+        return <ShowNote note={data}  key={data._id}  tagName={data.tag}/>;
       })}
     </div>
   );

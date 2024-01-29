@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { UserNotes } from "../Context/NoteContext";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -10,94 +10,68 @@ import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import { yellow, green, pink, blue } from "@mui/material/colors";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import PopUp from "../Pop-Up/PopUp"
-import { States_Func } from "../Context/Context";
+import PopUp from "../Pop-Up/PopUp";
 
-export default function ShowNote(props, { n }) {
-  let { note } = props;
-  const { handleDeleteNote, handleEditNote } = UserNotes();
-  const {showModal,setShowModal} = States_Func()
-  console.log("value of showmodal on toshownotes file = ", showModal)
-  const [noteObjvalue, setNoteObj] = useState({
-    title: "",
-    description: "",
-    tag: "",
-  });
-  // Note : Instead of making three state , i did it with one only afte passing an object into it.
-  const [combinedState, setCombinedState] = useState({
-    title: note.title,
-    description: note.description,
-    tag: note.tag,
-  });
+function useStyles(n) {
+  console.log("value of n =", n);
+  if (n === "work") {
+    return yellow[700];
+  }
+  if (n === "money") {
+    return green[500];
+  }
+  if (n === "todos") {
+    return pink[500];
+  }
+  return blue[500];
+}
 
-  function handleIconClick() {
-    setShowModal(true);
+export default function ShowNote({ note, tagName }) {
+  const { handleDeleteNote } = UserNotes();
+
+  const [open, setOpen] = useState(false);
+
+  function handleOpen() {
+    setOpen(true);
   }
 
-  // function handleCloseModal(e) {
-  //   if (e) {
-  //     e.preventDefault();
-  //   }
-  //   setShowModal(false);
-  // }
-
-  function handleClick(id) {
-    handleEditNote(
-      id,
-      noteObjvalue.title,
-      noteObjvalue.description,
-      noteObjvalue.tag
-    );
+  function handleClose() {
+    setOpen(false);
   }
-  // function onchange(e) {
-  //   setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
-  //   setNoteObj({ ...noteObjvalue, [e.target.name]: e.target.value });
-  // }
 
   const StyledCard = styled(Card)({
     // Add any additional styles you need for the Card component
   });
 
-  const useStyles = (n) => {
-    return {
-      avatar: {
-        backgroundColor: () => {
-          if (n.category === "work") {
-            return yellow[700];
-          }
-          if (n.category === "money") {
-            return green[500];
-          }
-          if (n.category === "todos") {
-            return pink[500];
-          }
-          return blue[500];
-        },
-      },
-      // Add any additional styles you need
-    };
-  };
-
-  const classes = useStyles(n);
+  const classes = useStyles(tagName);
+  console.log("value of classes = ",classes)
   return (
     <>
       <div>
-        <StyledCard elevation={1} className={classes.test}>
+        <StyledCard elevation={1}>
           <CardHeader
             avatar={
-              <Avatar className={classes.avatar}>
+              <Avatar
+             style={{backgroundColor : `${classes}`}}
+
+              >
                 {note.tag[0].toUpperCase()}
               </Avatar>
             }
             action={
               <div>
                 <IconButton onClick={() => handleDeleteNote(note._id)}>
-                  <DeleteOutlineOutlined />
+                  <DeleteOutlineOutlined className="bg"/>
                 </IconButton>
-                <IconButton onClick={() => handleIconClick(note._id)}>
+                <IconButton onClick={handleOpen}>
                   <ModeEditOutlineOutlinedIcon />
-                  <PopUp />
                 </IconButton>
+                <PopUp
+                  open={open}
+                  handleClose={handleClose}
+                  noteTitle={note.title}
+                  noteDesc={note.description}
+                />
               </div>
             }
             title={note.title}

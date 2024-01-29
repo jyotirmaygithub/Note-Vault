@@ -1,15 +1,14 @@
 import React from "react";
 import Dialog from "./Dialog";
 
-export default function FormDialog(props) {
-    // let { popUpState,setPopUpState } =  props;
-    // console.log("value of popstate = " , popUpState)
+export default function FormDialog({open, handleClose,noteTitle,noteDesc}) {
+
   return (
     <div>
       <Dialog
-        // open={popUpState}
-        // stateOfModal= {setPopUpState}
-        TransitionDuration={0} 
+        open={open}
+        handleClose={handleClose}
+        TransitionDuration={1} noteTitle={noteTitle} noteDesc={noteDesc}
       />
     </div>
   );
