@@ -13,7 +13,6 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import PopUp from "../Pop-Up/PopUp";
 
 function useStyles(n) {
-  console.log("value of n =", n);
   if (n === "work") {
     return yellow[700];
   }
@@ -44,24 +43,20 @@ export default function ShowNote({ note, tagName }) {
   });
 
   const classes = useStyles(tagName);
-  console.log("value of classes = ",classes)
   return (
     <>
       <div>
         <StyledCard elevation={1}>
           <CardHeader
             avatar={
-              <Avatar
-             style={{backgroundColor : `${classes}`}}
-
-              >
+              <Avatar style={{ backgroundColor: `${classes}` }}>
                 {note.tag[0].toUpperCase()}
               </Avatar>
             }
             action={
               <div>
                 <IconButton onClick={() => handleDeleteNote(note._id)}>
-                  <DeleteOutlineOutlined className="bg"/>
+                  <DeleteOutlineOutlined className="bg" />
                 </IconButton>
                 <IconButton onClick={handleOpen}>
                   <ModeEditOutlineOutlinedIcon />
@@ -71,6 +66,8 @@ export default function ShowNote({ note, tagName }) {
                   handleClose={handleClose}
                   noteTitle={note.title}
                   noteDesc={note.description}
+                  // noteId={note._id}
+                  noteTag={note.tag}
                 />
               </div>
             }
