@@ -25,7 +25,7 @@ function useStyles(n) {
   return blue[500];
 }
 
-export default function ShowNote({ note, tagName }) {
+export default function ShowNote({ note}) {
   const { handleDeleteNote } = UserNotes();
 
   const [open, setOpen] = useState(false);
@@ -41,8 +41,8 @@ export default function ShowNote({ note, tagName }) {
   const StyledCard = styled(Card)({
     // Add any additional styles you need for the Card component
   });
-
-  const classes = useStyles(tagName);
+console.log("note id = ", note._id)
+  const classes = useStyles(note.tag);
   return (
     <>
       <div>
@@ -62,12 +62,9 @@ export default function ShowNote({ note, tagName }) {
                   <ModeEditOutlineOutlinedIcon />
                 </IconButton>
                 <PopUp
+                  entireNote={note}
                   open={open}
-                  handleClose={handleClose}
-                  noteTitle={note.title}
-                  noteDesc={note.description}
-                  // noteId={note._id}
-                  noteTag={note.tag}
+                  openState={setOpen}
                 />
               </div>
             }

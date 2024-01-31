@@ -8,10 +8,11 @@ export default function Note() {
   useEffect(() => {
     fetchAllNotes();
   }, []);
+  console.log("arar")
   return (
     <div className="flex space-x-6 flex-wrap">
       {notes.map((data) => {
-        return <ShowNote note={data}  key={data._id}  tagName={data.tag}/>;
+        return <ShowNote note={data}  key={data._id}/>;
       })}
     </div>
   );

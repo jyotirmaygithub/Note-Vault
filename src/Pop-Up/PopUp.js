@@ -1,14 +1,17 @@
 import React from "react";
 import Dialog from "./Dialog";
 
-export default function FormDialog({open, handleClose,noteTitle,noteDesc,noteTag}) {
-
+export default function FormDialog({
+  open,
+  openState,
+  entireNote,
+}) {
   return (
     <div>
       <Dialog
+        entireNote={entireNote}
         open={open}
-        handleClose={handleClose}
-        TransitionDuration={1} noteTitle={noteTitle} noteDesc={noteDesc} noteTag={noteTag}
+        openState={openState}
       />
     </div>
   );
