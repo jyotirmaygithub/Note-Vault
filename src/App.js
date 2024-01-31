@@ -11,6 +11,7 @@ import EnterBtn from "./pages/EnterBtn";
 import ProgressCircle from "./pages/ProgressCircle";
 import AddNote from "./pages/AddNote";
 import ExistingNotes from "./pages/ExistingNotes";
+import Logo from "./Navbar/Logo";
 
 export default function App() {
   return (
@@ -18,7 +19,7 @@ export default function App() {
       <NoteContextFun>
         <ContextFun>
           <Router>
-            {/* <Navbar /> */}
+            {/* <Logo /> */}
             <Routes>
               <Route exact path="/" element={<EnterBtn />} />
               <Route exact path="/create-notes" element={<AddNote />} />

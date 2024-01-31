@@ -1,18 +1,24 @@
 import React, { useState, useContext, createContext } from "react";
 
-const Context = createContext();
+const UIContext = createContext();
 
+function checkCookie(cookieName) {
+  const stroeCookie = document.cookie;
+  if (stroeCookie.startsWith(`${cookieName}=`)) {
+    return true;
+  }
+  return false;
+}
 export function ContextFun(props) {
-  // Use "props" instead of "{ Children }"
-  const [showModal, setShowModal] = useState(false);
+  let something = "hery "
 
   return (
-    <Context.Provider value={{ showModal, setShowModal }}>
+    <UIContext.Provider value={{ checkCookie,something }}>
       {props.children}
-    </Context.Provider>
+    </UIContext.Provider>
   );
 }
 
-export function States_Func() {
-  return useContext(Context);
+export function updateUI() {
+  // return useContext(UIContext) ;
 }
