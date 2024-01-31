@@ -5,30 +5,31 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { UserNotes } from "../Context/NoteContext";
 import MyStyledTextField from "../components/MyStyledTextField";
 
 export default function FormDialog({ open, openState, entireNote }) {
+  const { handleEditNote } = UserNotes();
   let { _id, title, description, tag } = entireNote;
   const [combinedState, setCombinedState] = useState({
+    id: _id,
     title: title,
     description: description,
     tag: tag,
   });
-  // const [noteObjvalue, setNoteObj] = useState({
-  //   title: "",
-  //   description: "",
-  //   tag: "",
-  // });
 
   function onchange(e) {
     setCombinedState({ ...combinedState, [e.target.name]: e.target.value });
-    // setNoteObj({ ...noteObjvalue, [e.target.name]: e.target.value });
   }
 
   function handleClose() {
-    console.log("this is entire note in itself  = ", entireNote);
     openState(false);
-    console.log("values of combined state = ", combinedState);
+    handleEditNote(
+      combinedState.id,
+      combinedState.title,
+      combinedState.description,
+      combinedState.tag
+    );
   }
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -57,12 +58,22 @@ export default function FormDialog({ open, openState, entireNote }) {
           fullWidth
           required
         />
+        <MyStyledTextField
+          onChange={onchange}
+          label="Tag Name"
+          name="tag"
+          value={combinedState.tag}
+          rows={1}
+          variant="outlined"
+          fullWidth
+          required
+        />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} className="text-black">
+        <Button onClick={handleClose} className="text-white bg-black">
           Cancel
         </Button>
-        <Button onClick={handleClose} className="text-black">
+        <Button onClick={handleClose} className="text-white bg-black">
           Edit Note
         </Button>
       </DialogActions>

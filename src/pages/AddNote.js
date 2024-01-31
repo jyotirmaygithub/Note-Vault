@@ -68,12 +68,17 @@ export default function AddNote() {
   }
 
   return (
-    <Container className="mt-6 space-y-4" >
+    <Container className="mt-6 space-y-4">
       <Typography variant="h6" color="black" component="h2" gutterBottom>
         Create a new note
       </Typography>
 
-      <form noValidate autoComplete="off" onSubmit={handleClick} className="flex flex-col space-y-8">
+      <form
+        noValidate
+        autoComplete="off"
+        onSubmit={handleClick}
+        className="flex flex-col space-y-8"
+      >
         <MyStyledTextField
           onChange={onchange}
           label="Note Title"
@@ -112,6 +117,7 @@ export default function AddNote() {
               label="Todos"
             />
             <FormControlLabel
+              name="tag"
               value="reminders"
               control={<Radio className="text-black" />}
               label="Reminders"
