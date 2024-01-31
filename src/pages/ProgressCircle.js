@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function ProgressCircle() {
     const toNavigate = useNavigate()
     setTimeout(() => {
-        toNavigate("/home")
+        toNavigate("/existing-notes")
     }, 1000);
   return (
     <div className='h-screen flex justify-center items-center'>

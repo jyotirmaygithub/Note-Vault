@@ -98,7 +98,7 @@ export default function SignUp() {
         setAlertState(true);
         alertRemoval();
         setTimeout(() => {
-          Navigation(`/home`);
+          Navigation(`/create-notes`);
         }, 2500);
       }
     } catch (error) {

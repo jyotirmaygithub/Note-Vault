@@ -10,6 +10,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import MyStyledTextField from "../components/MyStyledTextField";
+import SwitchBtn from "../Navbar/SwitchBtn";
 
 export default function AddNote() {
   // Function : To take title,description and tag as argument to make a new note.
@@ -68,80 +69,81 @@ export default function AddNote() {
   }
 
   return (
-    <Container className="mt-6 space-y-4">
-      <Typography variant="h6" color="black" component="h2" gutterBottom>
-        Create a new note
-      </Typography>
+    <>
+      <Container className="mt-6 space-y-4">
+        <Typography variant="h6" color="black" component="h2" gutterBottom>
+          Create a new note
+        </Typography>
 
-      <form
-        noValidate
-        autoComplete="off"
-        onSubmit={handleClick}
-        className="flex flex-col space-y-8"
-      >
-        <MyStyledTextField
-          onChange={onchange}
-          label="Note Title"
-          variant="outlined"
-          name="title"
-          fullWidth
-          required
-
-          // error={titleError}
-        />
-
-        <MyStyledTextField
-          onChange={onchange}
-          label="Description"
-          name="description"
-          multiline
-          rows={4}
-          variant="outlined"
-          fullWidth
-          required
-        />
-
-        <FormControl>
-          <FormLabel className="text-black">Note Tags</FormLabel>
-          <RadioGroup onChange={onchange}>
-            <FormControlLabel
-              name="tag"
-              value="money"
-              control={<Radio className="text-black" />}
-              label="Money"
-            />
-            <FormControlLabel
-              name="tag"
-              value="todos"
-              control={<Radio className="text-black" />}
-              label="Todos"
-            />
-            <FormControlLabel
-              name="tag"
-              value="reminders"
-              control={<Radio className="text-black" />}
-              label="Reminders"
-            />
-            <FormControlLabel
-              name="tag"
-              value="work"
-              control={<Radio className="text-black" />}
-              label="Work"
-            />
-          </RadioGroup>
-        </FormControl>
-
-        <Button
-          className="bg-black mx-4 my-0 mt-4"
-          type="submit"
-          variant="contained"
-          endIcon={<ArrowForwardIosIcon />}
+        <form
+          noValidate
+          autoComplete="off"
+          onSubmit={handleClick}
+          className="flex flex-col space-y-8"
         >
-          Submit
-        </Button>
-      </form>
+          <MyStyledTextField
+            onChange={onchange}
+            label="Note Title"
+            variant="outlined"
+            name="title"
+            fullWidth
+            required
+          />
 
-      <br />
-    </Container>
+          <MyStyledTextField
+            onChange={onchange}
+            label="Description"
+            name="description"
+            multiline
+            rows={4}
+            variant="outlined"
+            fullWidth
+            required
+          />
+
+          <FormControl>
+            <FormLabel className="text-black">Note Tags</FormLabel>
+            <RadioGroup onChange={onchange}>
+              <FormControlLabel
+                name="tag"
+                value="money"
+                control={<Radio className="text-black" />}
+                label="Money"
+              />
+              <FormControlLabel
+                name="tag"
+                value="todos"
+                control={<Radio className="text-black" />}
+                label="Todos"
+              />
+              <FormControlLabel
+                name="tag"
+                value="reminders"
+                control={<Radio className="text-black" />}
+                label="Reminders"
+              />
+              <FormControlLabel
+                name="tag"
+                value="work"
+                control={<Radio className="text-black" />}
+                label="Work"
+              />
+            </RadioGroup>
+          </FormControl>
+
+          <Button
+            className="bg-black mx-4 my-0 mt-4"
+            type="submit"
+            variant="contained"
+            endIcon={<ArrowForwardIosIcon />}
+          >
+            Submit
+          </Button>
+        </form>
+
+        <br />
+      </Container>
+      <SwitchBtn text={"Avaliable Notes"} />
+    </>
   );
 }

@@ -94,7 +94,7 @@ export default function Login() {
         setAlertState(true);
         alertRemoval();
         setTimeout(() => {
-          Navigation(`/login/fetchingdata`);
+          Navigation(`/fetchingdata`);
         }, 2500);
       }
     } catch (error) {
