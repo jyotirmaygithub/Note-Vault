@@ -1,20 +1,24 @@
 import React from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
-import { updateUI } from "../Context/Context"
+import { useNavigate, useParams } from "react-router-dom";
+import { UpdateUI } from "../Context/Context"
 
 export default function EnterBtn() {
   const navigation = useNavigate()
-  const { checkCookie,something } = updateUI();
-  console.log("belong to checkcookie = ", something)
+  const { checkCookie } = UpdateUI();
+  
   function handleclick() {
-    if (checkCookie()) {
+    if (checkCookie("auth-token")) {
+        navigation(`/fetchingdata`);
+    }
+    else{
       setTimeout(() => {
-        navigation(`/existing-notes`)
+        navigation(`/login`)
       }, 500);
     }
   }
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-evenly ">
       <div className="text-center">
