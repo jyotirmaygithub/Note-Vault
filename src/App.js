@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./components/CustomNavbar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import { NoteContextFun } from "./Context/NoteContext";
@@ -11,7 +10,7 @@ import EnterBtn from "./pages/EnterBtn";
 import ProgressCircle from "./pages/ProgressCircle";
 import AddNote from "./pages/AddNote";
 import ExistingNotes from "./pages/ExistingNotes";
-import Logo from "./Navbar/Logo";
+import Navabar from "./Navbar/Navabar";
 
 export default function App() {
   return (
@@ -19,7 +18,7 @@ export default function App() {
       <NoteContextFun>
         <ContextFun>
           <Router>
-            {/* <Logo /> */}
+            <Navabar />
             <Routes>
               <Route exact path="/" element={<EnterBtn />} />
               <Route exact path="/create-notes" element={<AddNote />} />
@@ -29,7 +28,7 @@ export default function App() {
               <Route exact path="/login" element={<LogIn />} />
               <Route
                 exact
-                path="/login/fetchingdata"
+                path="/fetchingdata"
                 element={<ProgressCircle />}
               />
               <Route exact path="/signup" element={<SignUp />} />

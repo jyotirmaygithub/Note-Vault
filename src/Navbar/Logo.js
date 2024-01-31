@@ -1,5 +1,6 @@
 import React from 'react'
 import { PencilIcon } from '@heroicons/react/24/solid';
+
 export default function Logo() {
   return (
     <div className='flex justify-center items-center'>

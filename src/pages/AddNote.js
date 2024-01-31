@@ -143,7 +143,7 @@ export default function AddNote() {
 
         <br />
       </Container>
-      <SwitchBtn text={"Avaliable Notes"} />
+      {/* <SwitchBtn text={"Avaliable Notes"} /> */}
     </>
   );
 }
