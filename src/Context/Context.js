@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useContext, createContext } from "react";
 
 const UIContext = createContext();
 
@@ -9,10 +9,15 @@ async function checkCookie(cookieName) {
   }
   return false;
 }
+
+async function deleteAuthTokenCookie(value) {
+  document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+}
+
 export function ContextFun(props) {
 
   return (
-    <UIContext.Provider value={{ checkCookie }}>
+    <UIContext.Provider value={{ checkCookie,deleteAuthTokenCookie}}>
       {props.children}
     </UIContext.Provider>
   );
