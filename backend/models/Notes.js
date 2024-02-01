@@ -6,6 +6,10 @@ const notesSchema = new Schema({
       type: mongoose.Schema.Types.ObjectId, // it is a mongoose data type to take document id.
       ref: 'user'
   },
+  username:{
+   type: String,
+   required: true
+  },
    title: {
     type : String,
     required: true  // this means that the field is mandatory to fill in. If it's not filled in, an error will be

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userNote = require("../models/Notes");
+const userDocument = require("../models/User")
 const fetchuser = require("../middleware/fetchUser");
 const { body, validationResult } = require("express-validator");
 
@@ -35,10 +36,12 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    const username = await userDocument.findById(req.userDetails)
     try {
       // DOCUMENT CREATION : through methods and values.
       const createdNote = await userNote.create({
         user: req.userDetails,
+        username : username.name,
         title: req.body.title,
         description: req.body.description,
         tag: req.body.tag,
