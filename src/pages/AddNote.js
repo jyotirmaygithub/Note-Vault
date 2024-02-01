@@ -10,8 +10,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import MyStyledTextField from "../components/MyStyledTextField";
-import SwitchBtn from "../Navbar/SwitchBtn";
-
 export default function AddNote() {
   // Function : To take title,description and tag as argument to make a new note.
   const { fetchAllNotes } = UserNotes();
@@ -143,7 +141,6 @@ export default function AddNote() {
 
         <br />
       </Container>
-      {/* <SwitchBtn text={"Avaliable Notes"} /> */}
     </>
   );
 }

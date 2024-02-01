@@ -18,11 +18,11 @@ export default function App() {
       <NoteContextFun>
         <ContextFun>
           <Router>
-            <Navabar />
+            {/* <Navabar /> */}
             <Routes>
               <Route exact path="/" element={<EnterBtn />} />
-              <Route exact path="/create-notes" element={<AddNote />} />
-              <Route path="/existing-notes" element={<ExistingNotes />} />
+              <Route exact path="/create-notes" element={<><Navabar /><AddNote /></>} />
+              <Route path="/existing-notes" element={<><Navabar /><ExistingNotes /></>} />
               <Route exact path="/about" element={<About />} />
               <Route exact path="/contact" element={<Contact />} />
               <Route exact path="/login" element={<LogIn />} />

@@ -2,6 +2,7 @@ import React from 'react'
 import Logo from './Logo'
 import HomeContact from './Home_Contact'
 import SwitchBtn from './SwitchBtn'
+import UserName from './UserNameLogo/UserName'
 
 export default function Navabar() {
   return (
@@ -10,7 +11,10 @@ export default function Navabar() {
       <Logo/>
       <HomeContact/>
       </div>
+      <div className='flex space-x-3'>
       <SwitchBtn/>
+      <UserName/>
+      </div>
     </div>
   )
 }

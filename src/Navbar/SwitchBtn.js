@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SwitchBtn() {
@@ -26,8 +27,9 @@ export default function SwitchBtn() {
     <div>
       <Button
         onClick={handleClick}
-        className="bg-white text-black px-4 py-2 rounded-full"
+        className="bg-white text-black rounded-full w-44 gap-2"
       >
+        {userLocation.pathname === "/existing-notes" ? <AddCircleOutlineIcon/> : ""}
         {userSpot}
       </Button>
     </div>

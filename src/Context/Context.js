@@ -11,7 +11,7 @@ async function checkCookie(cookieName) {
 }
 
 async function deleteAuthTokenCookie(value) {
-  document.cookie = `${value}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+    document.cookie = `${value}=; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;`
 }
 
 export function ContextFun(props) {
