@@ -1,22 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React  from "react";
 import { Avatar } from "@mui/material";
 import { UpdateUI } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { UserNotes } from "../../Context/NoteContext";
+import {UserNameContext} from "../../Context/UserNameContext"
 
 export default function UserName() {
-  const {getCookie } = UserNotes();
+  const {userName } = UserNameContext();
   const [anchorEl, setAnchorEl] = React.useState(false);
   const { deleteAuthTokenCookie } = UpdateUI();
   const navigate = useNavigate();
-  const  [userName, setUserName] = useState("")
-
-  useEffect(() => {
-    handleExistingUsername()
-  }, []);
 
   function handleClick() {
     setAnchorEl(true);
@@ -30,28 +25,7 @@ export default function UserName() {
     deleteAuthTokenCookie("auth_token");
     navigate(`/login`);
   }
-  async function handleExistingUsername() {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_DEV_URL}/api/auth/getuser`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": getCookie("auth_token"),
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);      
-      }
-      const userDocument = await response.json();  
-      console.log("documents value = " , userDocument)
-      setUserName(userDocument.name)  
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    }
-  }
+
   return (
     <>
       <Avatar
