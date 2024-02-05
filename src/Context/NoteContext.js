@@ -96,6 +96,7 @@ export function NoteContextFun(props) {
         fetchAllNotes,
         handleDeleteNote,
         handleEditNote,
+        getCookie
       }}
     >
       {props.children}
