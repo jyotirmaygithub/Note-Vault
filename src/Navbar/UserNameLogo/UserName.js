@@ -1,4 +1,4 @@
-import React  from "react";
+import React,{useEffect, useState}  from "react";
 import { Avatar } from "@mui/material";
 import { UpdateUI } from "../../Context/Context";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +10,13 @@ import {UserNameContext} from "../../Context/UserNameContext"
 export default function UserName() {
   const {userName } = UserNameContext();
   const [anchorEl, setAnchorEl] = React.useState(false);
-  const { deleteAuthTokenCookie } = UpdateUI();
+  const [response, setResponse ]= useState(false)
+  const { deleteAuthTokenCookie,checkCookie } = UpdateUI();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+  setResponse(checkCookie("auth_token"))
+  },[])
 
   function handleClick() {
     setAnchorEl(true);
@@ -28,12 +33,12 @@ export default function UserName() {
 
   return (
     <>
-      <Avatar
+      {response && <Avatar
         onClick={handleClick}
         className="bg-white text-black font-bold cursor-pointer"
       >
         {userName && userName[0].toUpperCase()}
-      </Avatar>
+      </Avatar>}
       <Popover
         className="mt-16"
         open={anchorEl}

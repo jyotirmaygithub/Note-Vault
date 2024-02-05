@@ -9,7 +9,6 @@ export default function Note() {
   useEffect(() => {
     fetchAllNotes();
   }, []);
-  console.log("arar");
   return (
     <>
       <div className="flex flex-col my-4 mx-4 space-y-5">

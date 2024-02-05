@@ -42,7 +42,7 @@ export default function ShowNote({ note }) {
   const classes = useStyles(note.tag);
   return (
     <>
-      <div>
+      <div className="mx-4 my-3">
         <StyledCard elevation={1}>
           <CardHeader
             avatar={
