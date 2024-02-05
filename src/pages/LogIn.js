@@ -4,8 +4,6 @@ import Alert from "../components/Alerts";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,8 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
+import { UserNotes } from "../Context/NoteContext"
 
 export default function Login() {
+  const {fetchAllNotes} = UserNotes()
+
   function Copyright(props) {
     return (
       <Typography
@@ -93,8 +94,14 @@ export default function Login() {
         setDetails({ look: "success", des: "valid credentials" });
         setAlertState(true);
         alertRemoval();
+        const result = await fetchAllNotes()
         setTimeout(() => {
-          Navigation(`/fetchingdata`);
+          if(result.length === 0){
+            Navigation(`/create-notes`);
+          }
+          else{
+            Navigation(`/fetchingdata`);
+          }
         }, 2500);
       }
     } catch (error) {

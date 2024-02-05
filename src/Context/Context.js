@@ -2,7 +2,7 @@ import React, { useContext, createContext } from "react";
 
 const UIContext = createContext();
 
-async function checkCookie(cookieName) {
+function checkCookie(cookieName) {
   const stroeCookie = document.cookie;
   if (stroeCookie.startsWith(`${cookieName}=`)) {
     return true;
@@ -11,18 +11,17 @@ async function checkCookie(cookieName) {
 }
 
 async function deleteAuthTokenCookie(value) {
-    document.cookie = `${value}=; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;`
+  document.cookie = `${value}=; Expires=Thu, 01 Jan 1970 00:00:00 UTC; Path=/;`;
 }
 
 export function ContextFun(props) {
-
   return (
-    <UIContext.Provider value={{ checkCookie,deleteAuthTokenCookie}}>
+    <UIContext.Provider value={{ checkCookie, deleteAuthTokenCookie }}>
       {props.children}
     </UIContext.Provider>
   );
 }
 
 export function UpdateUI() {
-  return useContext(UIContext)
+  return useContext(UIContext);
 }

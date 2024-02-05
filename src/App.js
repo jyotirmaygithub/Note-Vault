@@ -20,7 +20,6 @@ export default function App() {
         <ContextFun>
           <UserNameContextFunc>
             <Router>
-              {/* <Navabar /> */}
               <Routes>
                 <Route exact path="/" element={<EnterBtn />} />
                 <Route

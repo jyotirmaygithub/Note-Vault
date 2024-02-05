@@ -23,7 +23,7 @@ export default function Note() {
             })
           ) : (
             <div className="w-full flex justify-center items-center mt-24">
-              <h2>"Your thoughts, your notes: Create now</h2>
+              <h2>Your thoughts, your notes : Create now</h2>
             </div>
           )}
         </div>

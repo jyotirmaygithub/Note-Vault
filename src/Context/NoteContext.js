@@ -44,6 +44,7 @@ export function NoteContextFun(props) {
       const jsonData = await response.json();
       console.log("existing data of the user ", jsonData);
       setnotes(jsonData);
+      return jsonData;
     } catch (error) {
       console.error("Error fetching notes:", error);
     }
