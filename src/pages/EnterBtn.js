@@ -9,7 +9,8 @@ export default function EnterBtn() {
   const { checkCookie } = UpdateUI();
   
   async function handleclick() {
-    if (checkCookie("auth_token")) {
+    const response = await checkCookie("auth_token")
+    if (response) {
         navigation(`/fetchingdata`);
     }
     else{

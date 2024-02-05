@@ -152,10 +152,6 @@ export default function Login() {
               autoComplete="current-password"
               onChange={onchange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" className="text-black " />}
-              label="Remember me"
-            />
             <Button
             className="bg-black"
               type="submit"
