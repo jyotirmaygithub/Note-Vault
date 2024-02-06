@@ -10,6 +10,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import MyStyledTextField from "../components/MyStyledTextField";
+
 export default function AddNote() {
   // Function : To take title,description and tag as argument to make a new note.
   const { fetchAllNotes } = UserNotes();
@@ -98,7 +99,6 @@ export default function AddNote() {
             fullWidth
             required
           />
-
           <FormControl>
             <FormLabel className="text-black">Note Tags</FormLabel>
             <RadioGroup onChange={onchange}>
@@ -125,6 +125,12 @@ export default function AddNote() {
                 value="work"
                 control={<Radio className="text-black" />}
                 label="Work"
+              />
+              <MyStyledTextField
+              className="w-[30vw]"
+                onChange={onchange}
+                label="Custom Tag"
+                name="tag"
               />
             </RadioGroup>
           </FormControl>

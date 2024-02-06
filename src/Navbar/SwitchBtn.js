@@ -11,17 +11,15 @@ export default function SwitchBtn() {
   const { fetchAllNotes } = UserNotes();
 
   useEffect(() => {
-    if (userLocation.pathname === "/existing-notes") {
-      setUserSpot("Create Note");
-    } else if (userLocation.pathname === "/create-notes") {
+    if (userLocation.pathname === "/create-notes") {
       setUserSpot("Available Notes");
+    } else {
+      setUserSpot("Create Note");
     }
   }, [userLocation.pathname]);
 
   async function handleClick() {
-    if (userLocation.pathname === "/existing-notes") {
-      navigate("/create-notes");
-    } else if (userLocation.pathname === "/create-notes") {
+    if (userLocation.pathname === "/create-notes") {
       const result = await fetchAllNotes();
 
       if (result.length === 0) {
@@ -29,6 +27,8 @@ export default function SwitchBtn() {
       } else {
         navigate("/fetchingdata");
       }
+    } else {
+      navigate("/create-notes");
     }
   }
   return (
@@ -37,7 +37,7 @@ export default function SwitchBtn() {
         onClick={handleClick}
         className="bg-white text-black rounded-full w-44 gap-2"
       >
-        {userLocation.pathname === "/existing-notes" ? (
+        {userLocation.pathname !== "/create-notes" ? (
           <AddCircleOutlineIcon />
         ) : (
           ""
