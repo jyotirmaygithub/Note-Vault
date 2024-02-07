@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { DeleteOutlineOutlined } from "@mui/icons-material";
 import { styled } from "@mui/system";
-import { green, blue, red, brown, grey } from "@mui/material/colors";
+import { green, blue, red, brown, teal } from "@mui/material/colors";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import PopUp from "../Pop-Up/PopUp";
 
@@ -25,7 +25,7 @@ function useStyles(n) {
   if (n === "reminders") {
     return red[900];
   } else {
-    return grey[700];
+    return teal[700];
   }
 }
 
@@ -42,7 +42,7 @@ export default function ShowNote({ note }) {
   const classes = useStyles(note.tag);
   return (
     <>
-      <div className="mx-4 my-3">
+      <div className="mx-4 my-3 w-72">
         <StyledCard elevation={1}>
           <CardHeader
             avatar={
@@ -71,7 +71,6 @@ export default function ShowNote({ note }) {
           </CardContent>
         </StyledCard>
       </div>
-      <div></div>
     </>
   );
 }
