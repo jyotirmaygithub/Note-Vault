@@ -56,8 +56,7 @@ export default function AddNote() {
     }
   }
 
-  function handleClick(e) {
-    e.preventDefault();
+  function handleClick() {
     // passing all required arugements
     handleAddNote(note.title, note.description, note.tag);
   }
@@ -75,8 +74,6 @@ export default function AddNote() {
         </Typography>
 
         <form
-          noValidate
-          autoComplete="off"
           onSubmit={handleClick}
           className="flex flex-col space-y-8"
         >
