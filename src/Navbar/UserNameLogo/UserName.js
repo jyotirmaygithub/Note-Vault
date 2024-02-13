@@ -59,29 +59,29 @@ export default function UserName() {
           horizontal: "right",
         }}
       >
-        <div className="p-2 space-y-1">
+        <div className="p-2 space-y-0 w-[110px]">
           <Typography
-            className="gap-1 hover:underline cursor-pointer"
+            className="space-x-2 hover:underline cursor-pointer flex"
             onClick={handleAbout}
           >
             <ContactSupport className="text-green-800 text-xl" />
-            About
+            <p>About</p>
           </Typography>
           <hr />
           <Typography
-            className="gap-2 hover:underline cursor-pointer"
+            className="space-x-2 hover:underline cursor-pointer flex"
             onClick={handleContact}
           >
             <Info className="text-blue-500 text-xl" />
-            Contact
+            <p>Contact</p>
           </Typography>
           <hr />
           <Typography
-            className="gap-1 hover:underline cursor-pointer"
+            className="space-x-2 hover:underline cursor-pointer flex"
             onClick={handleLogout}
           >
             <Logout className="text-red-600 text-xl" />
-            Log out
+            <p>Log out</p>
           </Typography>
         </div>
       </Popover>

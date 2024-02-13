@@ -7,7 +7,7 @@ import Date from "./Date"
 export default function Navabar() {
   return (
     <div className='flex justify-between px-5 py-8 bg-black'>
-      <div className="flex space-x-32">
+      <div className="flex space-x-[10vw]">
       <Logo/>
       <Date/>
       </div>

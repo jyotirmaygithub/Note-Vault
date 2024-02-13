@@ -1,25 +1,24 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 
 const noteContext = createContext();
 
 const dev_URL = process.env.REACT_APP_DEV_URL;
 
+const cookies = document.cookie;
+const cookieArray = cookies.split("; ");
 function getCookie(cookieName) {
-  const cookies = document.cookie;
-  const cookieArray = cookies.split("; ");
-  // console.log("cookieArray = ",cookieArray)
-
+  
   for (const cookie of cookieArray) {
     if (cookie.startsWith(`${cookieName}=`)) {
       // Extract and return the value of the cookie
       const cookieValue = cookie.split("=")[1];
-      // console.log("cookieValue = ",cookieValue)
       return cookieValue;
     }
   }
-
+  
   return null;
 }
+
 
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
