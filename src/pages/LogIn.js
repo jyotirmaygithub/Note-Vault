@@ -38,7 +38,7 @@ export default function Login() {
     password: "",
   });
   const [alertState, setAlertState] = useState(false);
-  const [details, setDetails] = useState({ look: "", des: "" });
+  const [details, setDetails] = useState({ type: "", message: "" });
   const Navigation = useNavigate();
 
   function alertRemoval() {
@@ -76,7 +76,7 @@ export default function Login() {
       );
       if (!response.ok) {
         setAlertState(true);
-        setDetails({ look: "danger", des: "Invalid credentials" });
+        setDetails({ type: "error", message: "Invalid Username or Password!" });
         alertRemoval();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -91,7 +91,7 @@ export default function Login() {
           userAuth_Token.auth_token
         }; expires=${expirationDate.toUTCString()}; path=/`;
 
-        setDetails({ look: "success", des: "valid credentials" });
+        setDetails({ type: "success", message: "Welcome Back!" });
         setAlertState(true);
         alertRemoval();
         const result = await fetchAllNotes()
@@ -111,8 +111,8 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div>
-        {alertState && <Alert looks={details.look} des={details.des} />}
+      <div className="h-[50px]">
+        {alertState && <Alert type={details.type} message={details.message} />}
       </div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

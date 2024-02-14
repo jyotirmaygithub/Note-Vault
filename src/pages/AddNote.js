@@ -10,12 +10,15 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import MyStyledTextField from "../components/MyStyledTextField";
+import  Alert  from "../components/Alerts";
 
 export default function AddNote() {
   // Function : To take title,description and tag as argument to make a new note.
   const { fetchAllNotes } = UserNotes();
   // create a object in state with name and values. which need to be update on user entered input and then need to pass as arugement in the given function.
   const [note, setnote] = useState({ title: "", description: "", tag: "" });
+  const [alertState, setAlertState] = useState(false);
+  const [details, setDetails] = useState({ type: "", message: "" });
 
   function getCookie(cookieName) {
     const cookies = document.cookie;
@@ -30,6 +33,13 @@ export default function AddNote() {
 
     return null;
   }
+
+  function alertRemoval() {
+    setTimeout(() => {
+      setAlertState(false);
+    }, 1500);
+  }
+
 
   // API call : To add note.
   async function handleAddNote(title, description, tag) {
@@ -49,14 +59,21 @@ export default function AddNote() {
       fetchAllNotes();
 
       if (!response.ok) {
+        setAlertState(true);
+        setDetails({ type: "error", message: "Sorry, Incorrect Details" });
+        alertRemoval();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+      setDetails({ type: "success", message: "Note placed in a vault or basket." });
+        setAlertState(true);
+        alertRemoval();
     } catch (error) {
       console.error("Error fetching notes:", error);
     }
   }
 
-  function handleClick() {
+  function handleClick(e) {
+    e.preventDefault()
     // passing all required arugements
     handleAddNote(note.title, note.description, note.tag);
   }
@@ -68,7 +85,10 @@ export default function AddNote() {
 
   return (
     <>
-      <Container className="mt-6 space-y-4">
+     <div className="h-[50px]">
+        {alertState && <Alert type={details.type} message={details.message} />}
+      </div>
+      <Container className="space-y-3">
         <Typography variant="h6" color="black" component="h2" gutterBottom>
           Create a new note
         </Typography>
@@ -110,12 +130,6 @@ export default function AddNote() {
                 value="todos"
                 control={<Radio className="text-black" />}
                 label="Todos"
-              />
-              <FormControlLabel
-                name="tag"
-                value="reminders"
-                control={<Radio className="text-black" />}
-                label="Reminders"
               />
               <FormControlLabel
                 name="tag"
