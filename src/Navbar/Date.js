@@ -7,7 +7,7 @@ export default function DateComponent() {
   const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
   return (
-    <Box>
+    <Box className="date-style">
       <Typography className='text-white' variant="p">Day & Date</Typography>
       <Typography className='text-white' variant="subtitle1">{formattedDate}</Typography>
     </Box>

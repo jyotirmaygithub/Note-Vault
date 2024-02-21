@@ -60,7 +60,7 @@ export default function AddNote() {
 
       if (!response.ok) {
         setAlertState(true);
-        setDetails({ type: "error", message: "Sorry, Incorrect Details" });
+        setDetails({ type: "error", message: "Sorry, Incomplete Note" });
         alertRemoval();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

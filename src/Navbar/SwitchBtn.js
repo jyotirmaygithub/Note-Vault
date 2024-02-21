@@ -35,7 +35,7 @@ export default function SwitchBtn() {
     <div>
       <Button
         onClick={handleClick}
-        className="bg-white text-black rounded-full w-44 gap-2"
+        className="bg-white text-black rounded-full w-40 gap-1"
       >
         {userLocation.pathname !== "/create-notes" ? (
           <AddCircleOutlineIcon />

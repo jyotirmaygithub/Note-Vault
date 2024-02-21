@@ -29,7 +29,10 @@ export default function EnterBtn() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-evenly ">
       <div className="text-center">
-        <h1 className="text-5xl font-bold mb-2">Welcome to NoteVault</h1>
+        <h1 className="text-4xl font-bold mb-2 font-size">
+          Welcome to NoteVault
+        </h1>
+
         <p className="text-gray-600">
           Your Secure Space for Effortless Note-Taking and Quick Retrieval
         </p>

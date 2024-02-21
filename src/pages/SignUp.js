@@ -106,7 +106,7 @@ export default function SignUp() {
   }
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div className="h-[50px]">
+      <div className="h-[50px] mt-1">
         {alertState && <Alert type={details.type} message={details.message} />}
       </div>
       <Container component="main" maxWidth="xs">

@@ -3,7 +3,7 @@ import { Typography, Container, Grid, Paper } from '@mui/material';
 
 export default function AboutUs(){
   return (
-    <Container className='mt-4'>
+    <Container className='my-4'>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper elevation={3} style={{ padding: '20px' }}>
