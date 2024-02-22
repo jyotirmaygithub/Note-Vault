@@ -4,14 +4,14 @@ const noteContext = createContext();
 
 const dev_URL = process.env.REACT_APP_DEV_URL;
 
-const cookies = document.cookie;
-const cookieArray = cookies.split("; ");
 function getCookie(cookieName) {
-  
+  const cookies = document.cookie;
+  const cookieArray = cookies.split("; ");
   for (const cookie of cookieArray) {
     if (cookie.startsWith(`${cookieName}=`)) {
       // Extract and return the value of the cookie
       const cookieValue = cookie.split("=")[1];
+      console.log("cookie value = " , cookieValue)
       return cookieValue;
     }
   }

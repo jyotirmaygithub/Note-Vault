@@ -32,7 +32,7 @@ export function UserNameContextFunc(props) {
     }
   }
   return (
-    <nameContext.Provider value={{ userName }}>
+    <nameContext.Provider value={{ userName,handleExistingUsername }}>
       {props.children}
     </nameContext.Provider>
   );

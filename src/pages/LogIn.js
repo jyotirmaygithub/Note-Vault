@@ -12,9 +12,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
 import { UserNotes } from "../Context/NoteContext"
+import { UserNameContext } from "../Context/UserNameContext";
 
 export default function Login() {
   const {fetchAllNotes} = UserNotes()
+  const {handleExistingUsername} = UserNameContext()
 
   function Copyright(props) {
     return (
@@ -94,6 +96,7 @@ export default function Login() {
         setDetails({ type: "success", message: "Welcome Back!" });
         setAlertState(true);
         alertRemoval();
+        handleExistingUsername()
         const result = await fetchAllNotes()
         setTimeout(() => {
           if(result.length === 0){
