@@ -4,8 +4,6 @@ import Alert from "../components/Alerts";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -13,8 +11,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
+import { UserNotes } from "../Context/NoteContext"
+import { UserNameContext } from "../Context/UserNameContext";
 
 export default function Login() {
+  const {fetchAllNotes} = UserNotes()
+  const {handleExistingUsername} = UserNameContext()
+
   function Copyright(props) {
     return (
       <Typography
@@ -37,7 +40,7 @@ export default function Login() {
     password: "",
   });
   const [alertState, setAlertState] = useState(false);
-  const [details, setDetails] = useState({ look: "", des: "" });
+  const [details, setDetails] = useState({ type: "", message: "" });
   const Navigation = useNavigate();
 
   function alertRemoval() {
@@ -75,7 +78,7 @@ export default function Login() {
       );
       if (!response.ok) {
         setAlertState(true);
-        setDetails({ look: "danger", des: "Invalid credentials" });
+        setDetails({ type: "error", message: "Invalid Username or Password!" });
         alertRemoval();
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -90,11 +93,18 @@ export default function Login() {
           userAuth_Token.auth_token
         }; expires=${expirationDate.toUTCString()}; path=/`;
 
-        setDetails({ look: "success", des: "valid credentials" });
+        setDetails({ type: "success", message: "Welcome Back!" });
         setAlertState(true);
         alertRemoval();
+        handleExistingUsername()
+        const result = await fetchAllNotes()
         setTimeout(() => {
-          Navigation(`/fetchingdata`);
+          if(result.length === 0){
+            Navigation(`/create-notes`);
+          }
+          else{
+            Navigation(`/fetchingdata`);
+          }
         }, 2500);
       }
     } catch (error) {
@@ -104,8 +114,8 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div>
-        {alertState && <Alert looks={details.look} des={details.des} />}
+      <div className="h-[50px] mt-1">
+        {alertState && <Alert type={details.type} message={details.message} />}
       </div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -151,10 +161,6 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
               onChange={onchange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" className="text-black " />}
-              label="Remember me"
             />
             <Button
             className="bg-black"

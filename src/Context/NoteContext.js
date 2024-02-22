@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 
 const noteContext = createContext();
 
@@ -7,19 +7,18 @@ const dev_URL = process.env.REACT_APP_DEV_URL;
 function getCookie(cookieName) {
   const cookies = document.cookie;
   const cookieArray = cookies.split("; ");
-  // console.log("cookieArray = ",cookieArray)
-
   for (const cookie of cookieArray) {
     if (cookie.startsWith(`${cookieName}=`)) {
       // Extract and return the value of the cookie
       const cookieValue = cookie.split("=")[1];
-      // console.log("cookieValue = ",cookieValue)
+      console.log("cookie value = " , cookieValue)
       return cookieValue;
     }
   }
-
+  
   return null;
 }
+
 
 export function NoteContextFun(props) {
   // Use "props" instead of "{ Children }"
@@ -44,6 +43,7 @@ export function NoteContextFun(props) {
       const jsonData = await response.json();
       console.log("existing data of the user ", jsonData);
       setnotes(jsonData);
+      return jsonData;
     } catch (error) {
       console.error("Error fetching notes:", error);
     }
@@ -96,6 +96,7 @@ export function NoteContextFun(props) {
         fetchAllNotes,
         handleDeleteNote,
         handleEditNote,
+        getCookie
       }}
     >
       {props.children}

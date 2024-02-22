@@ -35,7 +35,7 @@ export default function SignUp() {
     password: "",
   });
   const [alertState, setAlertState] = useState(false);
-  const [details, setDetails] = useState({ look: "", des: "" });
+  const [details, setDetails] = useState({ type: "", message: "" });
   const Navigation = useNavigate();
 
   function onchange(e) {
@@ -44,7 +44,6 @@ export default function SignUp() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(combinedState);
     await handleCreateUser(
       combinedState.username,
       combinedState.email,
@@ -80,7 +79,7 @@ export default function SignUp() {
       if (!response.ok) {
         setAlertState(true);
         alertRemoval();
-        setDetails({ look: "danger", des: "Invalid credentials" });
+        setDetails({ type: "error", message: "Invalid Credentials!" });
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
@@ -94,7 +93,7 @@ export default function SignUp() {
           userAuth_Token.auth_token
         }; expires=${expirationDate.toUTCString()}; path=/`;
 
-        setDetails({ look: "success", des: "valid credentials" });
+        setDetails({ type: "success", message: "Account has been successfully created" });
         setAlertState(true);
         alertRemoval();
         setTimeout(() => {
@@ -105,11 +104,10 @@ export default function SignUp() {
       console.error("Error creating user:", error);
     }
   }
-
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div>
-        {alertState && <Alert looks={details.look} des={details.des} />}
+      <div className="h-[50px] mt-1">
+        {alertState && <Alert type={details.type} message={details.message} />}
       </div>
       <Container component="main" maxWidth="xs">
         <CssBaseline />

@@ -69,7 +69,7 @@ export default function FormDialog({ open, openState, entireNote }) {
           required
         />
       </DialogContent>
-      <DialogActions>
+      <DialogActions className="mb-3">
         <Button onClick={handleClose} className="text-white bg-black">
           Cancel
         </Button>
