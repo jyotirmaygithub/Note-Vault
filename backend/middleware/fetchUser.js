@@ -1,7 +1,8 @@
 var jwt = require("jsonwebtoken");
 // Middleware : To fetch user details and its a function
+require('dotenv').config();
 
-const JWT_secret = "needtosearchformeaning";
+const JWT_secret = process.env.REACT_APP_JWT_SECRET;
 
 function fetchuser(req,res,next){
     const token = req.header("auth-token")
