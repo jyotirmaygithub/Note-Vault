@@ -5,8 +5,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 var jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchUser");
+require('dotenv').config();
 
-const JWT_secret = "needtosearchformeaning";
+const JWT_secret = process.env.REACT_APP_JWT_SECRET;
 
 //ROUTE 1 : creating an user account POST : /api/auth/createuser
 router.post(
