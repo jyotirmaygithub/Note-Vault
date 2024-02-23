@@ -14,7 +14,6 @@ export default function UserName() {
   const { deleteAuthTokenCookie, checkCookie } = UpdateUI();
   const navigate = useNavigate();
 
-  console.log("lets look at username = ", userName);
   useEffect(() => {
     setResponse(checkCookie("auth_token"));
   }, []);

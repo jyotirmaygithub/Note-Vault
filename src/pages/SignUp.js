@@ -11,9 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
+import { UserNameContext } from "../Context/UserNameContext";
 
 export default function SignUp() {
   const defaultTheme = createTheme();
+  const {handleExistingUsername} = UserNameContext()
   function Copyright(props) {
     return (
       <Typography
@@ -74,8 +76,7 @@ export default function SignUp() {
           },
           body: JSON.stringify({ name, email, password }),
         }
-      );
-
+      )
       if (!response.ok) {
         setAlertState(true);
         alertRemoval();
@@ -96,6 +97,7 @@ export default function SignUp() {
         setDetails({ type: "success", message: "Account has been successfully created" });
         setAlertState(true);
         alertRemoval();
+        handleExistingUsername()
         setTimeout(() => {
           Navigation(`/create-notes`);
         }, 2500);
@@ -137,7 +139,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="username"
-                  label="Username"
+                  label="Username (must be of 4 characters)"
                   name="username"
                   autoComplete="family-name"
                   onChange={onchange}
@@ -159,7 +161,7 @@ export default function SignUp() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Password (must be of 6 characters)"
                   type="password"
                   id="password"
                   autoComplete="new-password"

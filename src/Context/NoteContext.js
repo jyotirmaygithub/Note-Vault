@@ -11,7 +11,6 @@ function getCookie(cookieName) {
     if (cookie.startsWith(`${cookieName}=`)) {
       // Extract and return the value of the cookie
       const cookieValue = cookie.split("=")[1];
-      console.log("cookie value = " , cookieValue)
       return cookieValue;
     }
   }
@@ -41,7 +40,6 @@ export function NoteContextFun(props) {
       }
 
       const jsonData = await response.json();
-      console.log("existing data of the user ", jsonData);
       setnotes(jsonData);
       return jsonData;
     } catch (error) {
@@ -69,7 +67,6 @@ export function NoteContextFun(props) {
   }
   // API call 4 : To edit exiting note.
   async function handleEditNote(id, title, description, tag) {
-    console.log("id at the context side = ", id);
     try {
       const response = await fetch(`${dev_URL}/api/notes/updatenote/${id}`, {
         method: "PUT",

@@ -172,9 +172,6 @@ export default function Login() {
               LOG IN
             </Button>
             <Grid container className="text-black cursor-pointer underline">
-              <Grid item xs>
-                  Forgot password?
-              </Grid>
               <Grid item onClick={handleClick}>
                 "Don't have an account? Sign Up
               </Grid>
