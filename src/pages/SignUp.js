@@ -12,10 +12,13 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
 import { UserNameContext } from "../Context/UserNameContext";
+import Circleprogress from "../components/circleprogress"
 
 export default function SignUp() {
   const defaultTheme = createTheme();
   const {handleExistingUsername} = UserNameContext()
+  const [loader,setLoader] = useState(false)
+
   function Copyright(props) {
     return (
       <Typography
@@ -83,7 +86,7 @@ export default function SignUp() {
         setDetails({ type: "error", message: "Invalid Credentials!" });
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      setLoader(true)
       const userAuth_Token = await response.json();
 
       if (userAuth_Token && userAuth_Token.auth_token) {
@@ -176,7 +179,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              {loader ? (<Circleprogress/>) : (<p className="mb-0">SIGN UP</p>)}
             </Button>
             <Grid
               container

@@ -13,8 +13,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import MyStyledTextField from "../components/MyStyledTextField";
 import { UserNotes } from "../Context/NoteContext"
 import { UserNameContext } from "../Context/UserNameContext";
+import Circleprogress from "../components/circleprogress"
 
 export default function Login() {
+  const [loader,setLoader] = useState(false)
   const {fetchAllNotes} = UserNotes()
   const {handleExistingUsername} = UserNameContext()
 
@@ -49,7 +51,7 @@ export default function Login() {
     }, 1500);
   }
 
-  const handleSubmit = async (event) => {
+  function handleSubmit(event){
     event.preventDefault();
     handleExistingUser(combinedState.email, combinedState.password);
   };
@@ -83,6 +85,7 @@ export default function Login() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      setLoader(true)
       const userAuth_Token = await response.json();
 
       if (userAuth_Token && userAuth_Token.auth_token) {
@@ -169,7 +172,7 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              LOG IN
+              {loader ? (<Circleprogress/>) : (<p className="mb-0">LOG IN</p>)}
             </Button>
             <Grid container className="text-black cursor-pointer underline">
               <Grid item onClick={handleClick}>
